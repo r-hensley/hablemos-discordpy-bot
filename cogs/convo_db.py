@@ -1,6 +1,7 @@
 import sqlite3
+import re
 
-connection = sqlite3.connect("cogs/preguntas.db")
+connection = sqlite3.connect("preguntas.db")
 
 SELECT_RANDOM_QUESTION = """
 SELECT questions FROM {0}
@@ -14,4 +15,4 @@ def random_question(col):
         cursor = connection.cursor()
         cursor.execute(SELECT_RANDOM_QUESTION.format(col))
     return cursor.fetchone()[0]
-
+    
