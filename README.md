@@ -1,36 +1,43 @@
 # Hablemos 🗣
 
-Discord bot for Spanish/English servers
+Discord bot for Spanish/English servers. Coded in Discordpy
 
 Some key features:
 
 - Suggest conversation topics in Spanish and English
+    - source: https://mundodepreguntas.com/
 
 
 # Commands
 - [General](#general)
 - [Conversation starters](#conversation-starters)
+- [Sources](#sources)
 
 ## General
 ## Conversation starters
-- **`!convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic specified
+- **`!convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
     - topics:
-        - **`general`, `gen`**
-        - **`personal`, `pers`**
-        - **`tv`**
-        - **`movies`, `mov`**
-        - **`books`**
-        - **`music`**
-        - **`tech`**
-        - **`sports`**
-        - **`travel`**
-        - **`fashion`**
-        - **`goals`**
-        - **`holidays`, `hol`**
-        - **`education`, `edu`**
-        - **`food`**
-        - **`raro`**
-        - **`open`**
-        - **``**
-        - **``**
-        - **``**
+        - **`general`** - General questions
+        - **`personal`** - Personal questions
+        - **`open`** - Open-ended questions  
+        - **`strange`** - Strange/weird questions
+        - **`phil`** - Philosophical questions
+        
+        - **`books`** - Questions relating to books
+        - **`music`** - Questions related to music
+        - **`tech`** - Questions about technology
+        - **`sport`** - Questions related to sports
+        - **`food`** - Questions related to food
+        - **`holi`** - Questions related to holidays and seasons
+        - **`movies`** - Questions related to movies
+        - **`music`** - Questions related to musics
+        - **`travel`** - Questions related to travel
+        - **`edu`** - Questions about education
+                
+        - **`random`**, **`rand`** - A random from any of the above categories
+    
+## Sources
+Conversation starters:
+    - [Philosophical questions (ENG)](https://conversationstartersworld.com/philosophical-questions/)
+    - [Open-ended questions (ES)](https://mundodepreguntas.com/preguntas-abiertas/)
+    - [All other questions (ES)](https://mundodepreguntas.com/preguntas/)
