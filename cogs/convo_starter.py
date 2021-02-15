@@ -25,7 +25,7 @@ spa_channels = [809349064029241344, ]
 tables = {'general': 'generales', 'personal': 'personales', 'tv': 'televisión', 'movies': 'películas',
           'books': 'libros', "music": 'música',
           'tech': 'tech', 'sport': 'deportes', 'food': 'comida_cocina', 'travel': 'viajes', 'fashion': 'ropa',
-          'holidays': 'temporadas', 'education': 'educación', 'strange': 'extrañas', 'philo': 'filo'}
+          'holidays': 'temporadas', 'edu': 'educación', 'strange': 'extrañas', 'philo': 'filo'}
 
 tables_keys = list(tables.keys())
 tables_values = list(tables.values())

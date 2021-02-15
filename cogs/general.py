@@ -2,6 +2,8 @@ from discord.ext import commands
 from discord import Embed, Color
 
 SOURCE_URL = 'https://mundodepreguntas.com/preguntas'
+REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
+DPY = 'https://discordpy.readthedocs.io/en/latest/'
 
 
 def green_embed(text):
@@ -28,8 +30,12 @@ class General(commands.Cog):
             emb = green_embed(message)
             await ctx.send(embed=emb)
         else:
-            to_send = "Type `;help <command>` for more info on any command or category. For (subcommands), chain with" \
-                      " the parent command.\n\n"
+            to_send = """
+            Type `;help <command>` for more info on any command or category.
+            
+            __**General**__: `info`
+            __**Conversation starters**__: `topic`, `lst`
+            """
             await ctx.send(to_send)
 
     @commands.command()
@@ -54,10 +60,11 @@ class General(commands.Cog):
         `tech` - Questions about technology (33)
         `sport` - Questions related to sports (12)
         `food` - Questions related to food (23)
+        `fashion` - Questions related to fashion and clothes (12)
         `holi` - Questions related to holidays and seasons (20)
         `movies` - Questions related to movies (13)
-        `music` - Questions related to musics
-        `travel` - Questions related to travel 
+        `music` - Questions related to musics (14)
+        `travel` - Questions related to travel (19)
         `edu` - Questions about education (11)
                 
         `random`, `rand` - A random from any of the above categories
@@ -65,6 +72,20 @@ class General(commands.Cog):
         [Source]({SOURCE_URL})        
         """
         await ctx.send(embed=green_embed(categories))
+
+    @commands.command()
+    async def info(self, ctx):
+        """
+        Information about the bot
+        """
+
+        TEXT = f"""
+        The bot was coded in Python using the [discord.py API]({DPY}) and SQLite3 as the database.
+        
+        [Github Repository]({REPO})
+        """
+
+        await ctx.send(embed=green_embed(TEXT))
 
 
 def setup(bot):
