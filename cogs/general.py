@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Embed, Color
+from discord import Embed, Color, Forbidden
 
 SOURCE_URL = 'https://mundodepreguntas.com/preguntas'
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
@@ -14,12 +14,18 @@ class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    async def safe_send(self, destination, content=None, *, embed=None):
+        try:
+            return await destination.send(content, embed=embed)
+        except Forbidden:
+            print(f"I don't have permission to send a message in this channel")
+
     @commands.command()
     async def help(self, ctx, arg=''):
         if arg:
             requested = self.bot.get_command(arg)
             if not requested:
-                await ctx.send("I was unable to find the command you requested")
+                await self.safe_send(ctx, "I was unable to find the command you requested")
                 return
             message = ""
             message += f"**;{requested.qualified_name}**\n"
@@ -28,7 +34,7 @@ class General(commands.Cog):
             if requested.help:
                 message += requested.help
             emb = green_embed(message)
-            await ctx.send(embed=emb)
+            await self.safe_send(ctx, embed=emb)
         else:
             to_send = """
             Type `;help <command>` for more info on any command or category.
@@ -36,7 +42,7 @@ class General(commands.Cog):
             __**General**__: `info`
             __**Conversation starters**__: `topic`, `lst`
             """
-            await ctx.send(to_send)
+            await self.safe_send(ctx, to_send)
 
     @commands.command()
     async def lst(self, ctx):
@@ -73,7 +79,7 @@ class General(commands.Cog):
            
         [Source]({SOURCE_URL})        
         """
-        await ctx.send(embed=green_embed(categories))
+        await self.safe_send(ctx, embed=green_embed(categories))
 
     @commands.command()
     async def info(self, ctx):
@@ -87,7 +93,11 @@ class General(commands.Cog):
         [Github Repository]({REPO})
         """
 
-        await ctx.send(embed=green_embed(text))
+        await self.safe_send(ctx, green_embed(text))
+
+    @commands.command()
+    async def ping(self, ctx):
+        await self.safe_send(ctx, embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
 
 def setup(bot):

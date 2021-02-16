@@ -5,7 +5,6 @@ Discord bot for Spanish/English servers. Coded in Discordpy
 Some key features:
 
 - Suggest conversation topics in Spanish and English
-    - source: https://mundodepreguntas.com/
 
 
 # Commands

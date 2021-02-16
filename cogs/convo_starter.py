@@ -1,7 +1,7 @@
 from random import choice
 from .convo_db import random_question, tables, tables_values, tables_keys
 from discord.ext import commands
-from discord import Embed, Color
+from discord import Embed, Forbidden
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
@@ -64,12 +64,15 @@ class ConvoStarter(commands.Cog):
                 return
 
         question_spa_eng: tuple = random_question(table)
-        if ctx.channel.id == spa_channels[0]:
-            emb = embed_question(question_spa_eng[0], question_spa_eng[1])
-            await ctx.send(embed=emb)
-        else:
-            emb = embed_question(question_spa_eng[1], question_spa_eng[0])
-            await ctx.send(embed=emb)
+        try:
+            if ctx.channel.id == spa_channels[0]:
+                emb = embed_question(question_spa_eng[0], question_spa_eng[1])
+                await ctx.send(embed=emb)
+            else:
+                emb = embed_question(question_spa_eng[1], question_spa_eng[0])
+                await ctx.send(embed=emb)
+        except Forbidden:
+            print("I don't have permission to send messages in this channel")
 
 
 def setup(bot):
