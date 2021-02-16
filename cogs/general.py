@@ -44,7 +44,7 @@ class General(commands.Cog):
         Lists available categories
         """
         categories = f"""
-        **There are 16 categories**
+        **There are 18 categories**
         
         To use any one of them type `!topic <category>`
         
@@ -55,19 +55,21 @@ class General(commands.Cog):
         `strange` - Strange/weird questions (183)
         `phil` - Philosiphical questions (202)
         
+        `games` - Questions related to games (50)
+        `tv` - Questions about series/anime/cartoons (18)
         `books` - Questions relating to books (16)
         `music` - Questions related to music (14)
         `tech` - Questions about technology (33)
         `sport` - Questions related to sports (12)
         `food` - Questions related to food (23)
+        `lang`- Questions related to language learning (10)
         `fashion` - Questions related to fashion and clothes (12)
         `holi` - Questions related to holidays and seasons (20)
         `movies` - Questions related to movies (13)
-        `music` - Questions related to musics (14)
         `travel` - Questions related to travel (19)
-        `edu` - Questions about education (11)
+        `edu` - Questions about education (11) 
                 
-        `random`, `rand` - A random from any of the above categories
+        `random`, `rand` - A random question from any of the above categories
            
         [Source]({SOURCE_URL})        
         """
@@ -79,13 +81,13 @@ class General(commands.Cog):
         Information about the bot
         """
 
-        TEXT = f"""
+        text = f"""
         The bot was coded in Python using the [discord.py API]({DPY}) and SQLite3 as the database.
         
         [Github Repository]({REPO})
         """
 
-        await ctx.send(embed=green_embed(TEXT))
+        await ctx.send(embed=green_embed(text))
 
 
 def setup(bot):

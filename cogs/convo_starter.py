@@ -1,9 +1,7 @@
 from random import choice
-from .convo_db import random_question
+from .convo_db import random_question, tables, tables_values, tables_keys
 from discord.ext import commands
 from discord import Embed, Color
-
-
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
@@ -21,20 +19,14 @@ NOT_FOUND = "Topic not found! Please type ``!lst`` to see a list of topics"
 spa_channels = [809349064029241344, ]
 # eng_channels = [809349081657901126, ]
 
-# Names of the sqlite tables, in order
-tables = {'general': 'generales', 'personal': 'personales', 'tv': 'televisión', 'movies': 'películas',
-          'books': 'libros', "music": 'música',
-          'tech': 'tech', 'sport': 'deportes', 'food': 'comida_cocina', 'travel': 'viajes', 'fashion': 'ropa',
-          'holidays': 'temporadas', 'edu': 'educación', 'strange': 'extrañas', 'philo': 'filo'}
-
-tables_keys = list(tables.keys())
-tables_values = list(tables.values())
-
-
 # Embed question
 
+colors = [0x7289da, 0xe74c3c, 0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
+          0x3498db, 0x2ecc71, 0x1abc9c]
+
+
 def embed_question(question_1a, question_1b):
-    embed = Embed(color=Color.blurple())
+    embed = Embed(color=choice(colors))
     embed.clear_fields()
     embed.title = question_1a
     embed.description = f"**{question_1b}**"
@@ -47,7 +39,7 @@ class ConvoStarter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['top',])
+    @commands.command(aliases=['top', ])
     async def topic(self, ctx, *category):
         """
         Command used to suggestion a random conversation topic. Type `!topic <category>`. Just typing `!topic` will suggest a topic from the `general` category.
@@ -71,7 +63,7 @@ class ConvoStarter(commands.Cog):
                 await ctx.send(NOT_FOUND)
                 return
 
-        question_spa_eng = random_question(table)
+        question_spa_eng: tuple = random_question(table)
         if ctx.channel.id == spa_channels[0]:
             emb = embed_question(question_spa_eng[0], question_spa_eng[1])
             await ctx.send(embed=emb)
