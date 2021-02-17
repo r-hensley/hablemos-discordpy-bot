@@ -12,7 +12,11 @@ Some key features:
 - [Conversation starters](#conversation-starters)
 
 ## General
+- **`help`** Shows available commands and further information on their usage
+- **`info`** Information about the bot
+
 ## Conversation starters
+- **`lst`** Lists available topics
 - **`!convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
     - topics:
         - **`general`** - General questions
@@ -37,9 +41,17 @@ Some key features:
                 
         - **`random`**, **`rand`** - A random question from any of the above categories
     
-# Sources
-Conversation starters:
-    - [Philosophical questions (ENG)](https://conversationstartersworld.com/philosophical-questions/)
-    - [Open-ended questions (ES)](https://mundodepreguntas.com/preguntas-abiertas/)
-    - [Video games (ENG)](https://levelskip.com/community/fun-video-game-related-questions-to-ask)
-    - [All other questions (ES)](https://mundodepreguntas.com/preguntas/)
+        ### Sources
+      - [Philosophical questions (ENG)](https://conversationstartersworld.com/philosophical-questions/)
+      - [Open-ended questions (ES)](https://mundodepreguntas.com/preguntas-abiertas/)
+      - [Video games (ENG)](https://levelskip.com/community/fun-video-game-related-questions-to-ask)
+      - [All other questions (ES)](https://mundodepreguntas.com/preguntas/)
+
+# To-Do
+- General
+    - Add command to make prefix configurable
+- Conversation starters
+    - Maybe add more languages
+    - Add ability to show just the requested language
+- Other
+    - Spanish Hangman or other vocabulary game
