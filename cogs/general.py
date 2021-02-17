@@ -1,7 +1,7 @@
 from discord.ext import commands
 from discord import Embed, Color, Forbidden
 
-SOURCE_URL = 'https://mundodepreguntas.com/preguntas'
+SOURCE_URL = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot#sources'
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
 
@@ -38,12 +38,15 @@ class General(commands.Cog):
             await self.safe_send(ctx, embed=emb)
         else:
             to_send = """
-            Type `;help <command>` for more info on any command or category.
+            Type `$help <command>` for more info on any command or category.
             
-            __**General**__: `info`
-            __**Conversation starters**__: `topic`, `lst`
+            __**General**__: 
+                `info` - Display information and a GitHub link to the source code
+            __**Conversation starters**__: 
+                `topic` - Displays random conversation starter 
+                `lst` - Lists available categories
             """
-            await self.safe_send(ctx, to_send)
+            await self.safe_send(ctx, embed=green_embed(to_send))
 
     @commands.command()
     async def lst(self, ctx):
@@ -53,7 +56,7 @@ class General(commands.Cog):
         categories = f"""
         **There are 18 categories**
         
-        To use any one of them type `!topic <category>`
+        To use any one of them type `$topic <category>`. `$topic` defaults to `general`
         
         command - description (number of questions):
         `general` - General questions (140)
@@ -94,7 +97,7 @@ class General(commands.Cog):
         [Github Repository]({REPO})
         """
 
-        await self.safe_send(ctx, green_embed(text))
+        await self.safe_send(ctx, embed=green_embed(text))
 
     @commands.command()
     async def ping(self, ctx):

@@ -14,10 +14,11 @@ FOOTER_ESP = f"\nPreguntas traducidas con [DeepL]({DEEPL_URL}). Utiliza [este en
 ERROR_MESSAGE = "The proper format is ``!topic <topic>`` eg. ``!topic movies``. Please see " \
                 "``!help topic`` for more info"
 
-NOT_FOUND = "Topic not found! Please type ``!lst`` to see a list of topics"
+NOT_FOUND = "Topic not found! Please type ``$lst`` to see a list of topics"
 
 # Spa and Eng Channel IDs
-spa_channels = [809349064029241344, ]
+spa_channels = [809349064029241344, 243858509123289089, 388539967053496322, 477630693292113932]
+#  personal server, spa-eng, spa-eng, esp-ing
 # eng_channels = [809349081657901126, ]
 
 # Embed question
@@ -43,11 +44,11 @@ class ConvoStarter(commands.Cog):
     @commands.command(aliases=['top', ])
     async def topic(self, ctx, *category):
         """
-        Command used to suggestion a random conversation topic. Type `!topic <category>`. Just typing `!topic` will suggest a topic from the `general` category.
+        Command used to suggestion a random conversation topic. Type `$topic <category>`. Just typing `$topic` will suggest a topic from the `general` category.
 
-        Type `;lst` to see the list of categories.
+        Type `$lst` to see the list of categories.
 
-        Example: `!topic food`"""
+        Example: `$topic food`"""
 
         table = ""
         if len(category) > 1:
