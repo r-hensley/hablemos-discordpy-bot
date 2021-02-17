@@ -17,7 +17,7 @@ Some key features:
 
 ## Conversation starters
 - **`lst`** Lists available topics
-- **`!convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
+- **`convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
     - topics:
         - **`general`** - General questions
         - **`personal`** - Personal questions
