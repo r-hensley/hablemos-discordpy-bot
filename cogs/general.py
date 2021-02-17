@@ -18,7 +18,8 @@ class General(commands.Cog):
         try:
             return await destination.send(content, embed=embed)
         except Forbidden:
-            print(f"I don't have permission to send a message in this channel")
+            print(f"I don't have permission to send messages in:\nChannel: #{destination.channel.name}"
+                  f"\nGuild: {destination.guild.name}")
 
     @commands.command()
     async def help(self, ctx, arg=''):
