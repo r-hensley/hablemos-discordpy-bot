@@ -51,7 +51,7 @@ Some key features:
 - General
     - Add command to make prefix configurable
 - Conversation starters
-    - Maybe add more languages
+    - Add more languages
     - Add ability to show just the requested language
 - Other
     - Spanish Hangman or other vocabulary game
