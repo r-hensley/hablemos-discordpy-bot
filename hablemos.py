@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-PREFIX = "!"
+PREFIX = "$"
 cog_extensions = ['cogs.convo_starter', 'cogs.general']
 
 
