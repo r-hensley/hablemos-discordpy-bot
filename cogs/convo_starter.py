@@ -27,12 +27,12 @@ colors = [0x7289da, 0xe74c3c, 0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
           0x3498db, 0x2ecc71, 0x1abc9c]
 
 
-def embed_question(question_1a, question_1b):
+def embed_question(question_1a, question_1b, footer):
     embed = Embed(color=choice(colors))
     embed.clear_fields()
     embed.title = question_1a
     embed.description = f"**{question_1b}**"
-    embed.add_field(name="\u200b", value=FOOTER_ESP, inline=False)
+    embed.add_field(name="\u200b", value=footer, inline=False)
     return embed
 
 
@@ -68,10 +68,10 @@ class ConvoStarter(commands.Cog):
         question_spa_eng: tuple = random_question(table)
 
         if ctx.channel.id == spa_channels[0]:
-            emb = embed_question(question_spa_eng[0], question_spa_eng[1])
+            emb = embed_question(question_spa_eng[0], question_spa_eng[1], FOOTER_ESP)
             await gen.safe_send(ctx.channel, ctx, embed=emb)
         else:
-            emb = embed_question(question_spa_eng[1], question_spa_eng[0])
+            emb = embed_question(question_spa_eng[1], question_spa_eng[0], FOOTER_ENG)
             await gen.safe_send(ctx.channel, ctx, embed=emb)
 
 
