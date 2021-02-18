@@ -19,7 +19,7 @@ class General(commands.Cog):
             return await destination.send(content, embed=embed)
         except Forbidden:
             print(f"I don't have permission to send messages in:\nChannel: #{destination.channel.name}"
-                  f"\nGuild: {destination.guild.name}")
+                  f"\nGuild: {destination.guild.id}")
 
     @commands.command()
     async def help(self, ctx, arg=''):
@@ -101,7 +101,8 @@ class General(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
-        await self.safe_send(ctx, embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
+        await self.safe_send(ctx,
+                             embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
 
 def setup(bot):

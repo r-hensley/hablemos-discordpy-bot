@@ -1,13 +1,13 @@
 import os
-from discord import Game
-from discord.ext.commands import Bot
+from discord import Game, Client
+from discord.ext.commands import Bot, CommandNotFound, Cog
 from dotenv import load_dotenv
 
 load_dotenv('.env')
 
 PREFIX = "$"
 cog_extensions = ['cogs.convo_starter', 'cogs.general']
-
+client = Client()
 
 # for when the bot gets bigger:
 # for filename in os.listdir("./cogs"):
@@ -28,6 +28,14 @@ class Hablemos(Bot):
     async def on_ready(self):
         print("BOT LOADED!")
         await self.change_presence(activity=Game(f'{PREFIX}help for help'))
+
+    async def on_command_error(self, ctx, error):
+        ignored = (CommandNotFound,)
+
+        if isinstance(error, ignored):
+            guild = client.get_guild(523754549953953793)
+            print(type(guild))
+            # await channel.send("Test")
 
 
 bot = Hablemos()
