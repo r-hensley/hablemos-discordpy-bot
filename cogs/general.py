@@ -48,7 +48,7 @@ class General(commands.Cog):
             """
             await self.safe_send(ctx, embed=green_embed(to_send))
 
-    @commands.command()
+    @commands.command(aliases=['list', ])
     async def lst(self, ctx):
         """
         Lists available categories

@@ -2,7 +2,7 @@ from random import choice
 from .convo_db import random_question, tables, tables_values, tables_keys
 from .general import General as gen
 from discord.ext import commands
-from discord import Embed, Forbidden, TextChannel
+from discord import Embed
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
@@ -77,5 +77,3 @@ class ConvoStarter(commands.Cog):
 
 def setup(bot):
     bot.add_cog(ConvoStarter(bot))
-
-# @commands.bot_has_permissions(send_messages=True, embed_links=True)
