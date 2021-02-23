@@ -46,6 +46,10 @@ class Hablemos(Bot):
                                                               guild=f"{ctx.guild}, {ctx.guild.id}",
                                                               message=ctx.message.content))
 
+    async def on_command_completion(self, ctx):
+        await self.error_channel.send(
+            f"Succesfully used by {ctx.author}, {ctx.channel},{ctx.guild}, {ctx.message.content}")
+
 
 bot = Hablemos()
 bot.run(os.getenv('BOT_TOKEN'))

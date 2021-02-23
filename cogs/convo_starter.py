@@ -1,12 +1,12 @@
 from random import choice
 from .convo_db import random_question, tables, tables_values, tables_keys
 from .general import General as gen
-from hablemos import Hablemos
+from hablemos import Hablemos as hable
 from discord.ext import commands
 from discord import Embed
 
 
-hable = Hablemos()
+
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
 SUGGESTION_FORM = "https://docs.google.com/forms/d/1yDMkL0NLlPWWuNy2veMr3PLoNjYc2LTD_pnqYurP91c/"
@@ -76,7 +76,7 @@ class ConvoStarter(commands.Cog):
         else:
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
             await gen.safe_send(ctx.channel, ctx, embed=emb)
-        await hable.error_channel.send(f"Successfully used:\n{ctx.message.author}\n{ctx.channel}\n{ctx.guild}")
+        await hable().error_channel.send(f"Successfully used:\n{ctx.message.author}\n{ctx.channel}\n{ctx.guild}")
 
 
 def setup(bot):
