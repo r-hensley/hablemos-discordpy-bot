@@ -76,7 +76,6 @@ class ConvoStarter(commands.Cog):
         else:
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
             await gen.safe_send(ctx.channel, ctx, embed=emb)
-        await hable().error_channel.send(f"Successfully used:\n{ctx.message.author}\n{ctx.channel}\n{ctx.guild}")
 
 
 def setup(bot):
