@@ -1,11 +1,8 @@
 from random import choice
 from .convo_db import random_question, tables, tables_values, tables_keys
 from .general import General as gen
-from hablemos import Hablemos as hable
 from discord.ext import commands
 from discord import Embed
-
-
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
@@ -70,7 +67,7 @@ class ConvoStarter(commands.Cog):
 
         question_spa_eng: tuple = random_question(table)
 
-        if ctx.channel.id == spa_channels[0]:
+        if ctx.channel.id in spa_channels:
             emb = embed_question(question_spa_eng[0], question_spa_eng[1])
             await gen.safe_send(ctx.channel, ctx, embed=emb)
         else:
