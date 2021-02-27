@@ -53,34 +53,33 @@ class General(commands.Cog):
         """
         Lists available categories
         """
-        categories = f"""
-        **There are 18 categories**
+        categories = f"""    
+        To use any one of them type `$topic <category>`. 
+        `$topic` or `$top` defaults to `general`
         
-        To use any one of them type `$topic <category>`. `$topic` defaults to `general`
+        command - description:
+        `general` - General questions
+        `personal` - Personal questions
+        `open` - Open-ended questions
+        `strange` - Strange/weird questions
+        `phil` - Philosophical questions
         
-        command - description (number of questions):
-        `general` - General questions (140)
-        `personal` - Personal questions (125)
-        `open` - Open-ended questions (100)
-        `strange` - Strange/weird questions (183)
-        `phil` - Philosiphical questions (202)
-        
-        `games` - Questions related to games (50)
-        `tv` - Questions about series/anime/cartoons (18)
-        `books` - Questions relating to books (16)
-        `music` - Questions related to music (14)
-        `tech` - Questions about technology (33)
-        `sport` - Questions related to sports (12)
-        `food` - Questions related to food (23)
-        `lang`- Questions related to language learning (10)
-        `fashion` - Questions related to fashion and clothes (12)
-        `holi` - Questions related to holidays and seasons (20)
-        `movies` - Questions related to movies (13)
-        `travel` - Questions related to travel (19)
-        `edu` - Questions about education (11) 
+        `games` - Questions related to games
+        `tv` - Questions about series/anime/cartoons
+        `books` - Questions related to books
+        `music` - Questions related to music
+        `tech` - Questions about technology
+        `sport` - Questions related to sports
+        `food` - Questions related to food
+        `lang`- Questions related to language learning
+        `fashion` - Questions related to fashion and clothes
+        `holi` - Questions related to holidays and seasons
+        `movies` - Questions related to movies
+        `travel` - Questions related to travel
+        `edu` - Questions about education
                 
         `random`, `rand` - A random question from any of the above categories
-           
+
         [Source]({SOURCE_URL})        
         """
         await self.safe_send(ctx, embed=green_embed(categories))
@@ -92,8 +91,8 @@ class General(commands.Cog):
         """
 
         text = f"""
-        The bot was coded in Python using the [discord.py API]({DPY}) and SQLite3 as the database.
-        
+        The bot was coded in Python using the [discord.py]({DPY}) API and SQLite3 as the database.
+        To report an error or make a suggested please message <@216848576549093376>
         [Github Repository]({REPO})
         """
 
