@@ -8,6 +8,7 @@ tables = {'general': 'generales', 'personal': 'personales', 'tv': 'televisión',
           'games': 'juegos', 'open': 'open'}
 
 tables_keys = list(tables.keys())
+tables_first_two_characters = [key[0:2] for key in tables_keys]
 tables_values = list(tables.values())
 
 # SQLITE QUERY
