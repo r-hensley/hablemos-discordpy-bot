@@ -54,10 +54,10 @@ class General(commands.Cog):
         Lists available categories
         """
         categories = f"""    
-        To use any one of them type `$topic <category>`. 
+        To use any one of the undermentioned topics type `$topic <category>`. 
         `$topic` or `$top` defaults to `general`
         
-        command - description:
+        command(category) - description:
         `general` - General questions
         `personal` - Personal questions
         `open` - Open-ended questions
@@ -92,7 +92,8 @@ class General(commands.Cog):
 
         text = f"""
         The bot was coded in Python using the [discord.py]({DPY}) API and SQLite3 as the database.
-        To report an error or make a suggested please message <@216848576549093376>
+        
+        To report an error or make a suggestion please message <@216848576549093376>
         [Github Repository]({REPO})
         """
 
