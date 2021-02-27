@@ -1,25 +1,25 @@
 from random import choice
-from .convo_db import random_question, tables, tables_values, tables_keys
+from .convo_db import random_question, tables, tables_values, tables_keys, tables_first_two_characters
 from .general import General as gen
 from discord.ext import commands
 from discord import Embed
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
-SUGGESTION_FORM = "https://docs.google.com/forms/d/1yDMkL0NLlPWWuNy2veMr3PLoNjYc2LTD_pnqYurP91c/"
-FOOTER_ENG = f"Questions translated using [DeepL]({DEEPL_URL}). Feel free to use [this link]({SUGGESTION_FORM}) " \
-             f"to report a mistake or suggest a question"
-FOOTER_ESP = f"\nPreguntas traducidas con [DeepL]({DEEPL_URL}). Utiliza [este enlace]({SUGGESTION_FORM}) " \
-             f"para reportar un error o sugerir una pregunta"
-ERROR_MESSAGE = "The proper format is ``!topic <topic>`` eg. ``!topic movies``. Please see " \
-                "``!help topic`` for more info"
+# SUGGESTION_FORM = "https://docs.google.com/forms/d/1yDMkL0NLlPWWuNy2veMr3PLoNjYc2LTD_pnqYurP91c/"
+# FOOTER_ENG = f"Questions translated using [DeepL]({DEEPL_URL}). Feel free to use [this link]({SUGGESTION_FORM}) " \
+#              f"to report a mistake or suggest a question"
+# FOOTER_ESP = f"\nPreguntas traducidas con [DeepL]({DEEPL_URL}). Utiliza [este enlace]({SUGGESTION_FORM}) " \
+#              f"para reportar un error o sugerir una pregunta"
+ERROR_MESSAGE = "The proper format is `$topic <topic>` eg. `$topic movies`. Please see " \
+                "`$help topic` for more info"
 
 NOT_FOUND = "Topic not found! Please type ``$lst`` to see a list of topics"
 
 # Spa and Eng Channel IDs
 spa_channels = [809349064029241344, 243858509123289089, 388539967053496322, 477630693292113932]
 #  personal server, spa-eng, spa-eng, esp-ing
-# eng_channels = [809349081657901126, ]
+# eng_channels = []
 
 # Embed question
 
@@ -59,8 +59,10 @@ class ConvoStarter(commands.Cog):
         else:
             if category[0] in tables_keys:
                 table = tables[category[0]]
-            elif category[0] == 'rand' or category[0] == 'random':
+            elif category[0] == 'rand' or category[0] == 'random' or category[0] == 'ra':
                 table = choice(tables_values)
+            elif category[0][0:2] in tables_first_two_characters:
+                table = tables[tables_keys[tables_first_two_characters.index(category[0][0:2])]]
             else:
                 await ctx.send(NOT_FOUND)
                 return
