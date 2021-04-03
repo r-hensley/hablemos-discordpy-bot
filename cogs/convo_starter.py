@@ -61,6 +61,7 @@ class ConvoStarter(commands.Cog):
                 table = tables[category[0]]
             elif category[0] == 'rand' or category[0] == 'random' or category[0] == 'ra':
                 table = choice(tables_values)
+            # in case of a spelling mistake:
             elif category[0][0:2] in tables_first_two_characters:
                 table = tables[tables_keys[tables_first_two_characters.index(category[0][0:2])]]
             else:
