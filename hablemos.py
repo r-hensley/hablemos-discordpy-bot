@@ -34,7 +34,7 @@ class Hablemos(Bot):
         self.error_channel = self.get_guild(523754549953953793).get_channel(811845363890913300)
 
         print("BOT LOADED!")
-        await self.change_presence(activity=Game(f'{PREFIX}help for help'))
+        await self.change_presence(activity=Game(f'{PREFIX}topic for a conversation starter'))
 
     async def on_command_error(self, ctx, error):
         ignored = (CommandNotFound,)
