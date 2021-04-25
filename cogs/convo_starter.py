@@ -77,12 +77,6 @@ class ConvoStarter(commands.Cog):
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
             await gen.safe_send(ctx.channel, ctx, embed=emb)
 
-    # @commands.command()
-    # async def hola(self, ctx):
-    #     if ctx.author.id == 216848576549093376:
-    #         await ctx.send("")
-    #     else:
-    #         await ctx.send("No me dirijas la palabra")
 
 def setup(bot):
     bot.add_cog(ConvoStarter(bot))
