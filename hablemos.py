@@ -6,17 +6,7 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 
 PREFIX = "$"
-cog_extensions = ['cogs.convo_starter', 'cogs.general']
-
-# Error message embed:
-# def embed_message(title, user, channel, guild, message):
-#     embed = Embed(color=Color.greyple())
-#     embed.title = title
-#     embed.add_field(name="User", value=user, inline=False)
-#     embed.add_field(name="Channel", value=channel, inline=False)
-#     embed.add_field(name="Guild", value=guild, inline=False)
-#     embed.add_field(name="Message", value=message, inline=False)
-#     return embed
+cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.other']
 
 
 class Hablemos(Bot):
