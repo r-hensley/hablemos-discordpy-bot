@@ -10,6 +10,7 @@ Some key features:
 # Commands
 - [General](#general)
 - [Conversation starters](#conversation-starters)
+- [Hangman](#hangman)
 
 ## General
 - **`help`** Shows available commands and further information on their usage
@@ -17,36 +18,19 @@ Some key features:
 
 ## Conversation starters
 - **`lst`** Lists available topics
-- **`convo <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
+- **`topic <topic>`** Shows a random question from a specified conversation topic. Selects a question from general questions if no topic is specified
     - topics:
-        - **`general`** - General questions
-        - **`personal`** - Personal questions
-        - **`open`** - Open-ended questions  
-        - **`strange`** - Strange/weird questions
-        - **`phil`** - Philosophical questions
-        
-        - **`juegos`** - Questions related to games
-        - **`books`** - Questions related to books
-        - **`music`** - Questions related to music
-        - **`tech`** - Questions about technology
-        - **`sport`** - Questions related to sports
-        - **`food`** - Questions related to food
-        - **`lang`** - Questions related to language learning
-        - **`fashion`** - Questions related to fashion and clothes
-        - **`holi`** - Questions related to holidays and seasons
-        - **`movies`** - Questions related to movies
-        - **`music`** - Questions related to musics
-        - **`travel`** - Questions related to travel
-        - **`edu`** - Questions about education
-                
-        - **`random`**, **`rand`** - A random question from any of the above categories
-    
-        ### Sources
-      - [Philosophical questions (ENG)](https://conversationstartersworld.com/philosophical-questions/)
-      - [Open-ended questions (ES)](https://mundodepreguntas.com/preguntas-abiertas/)
-      - [Video games (ENG)](https://levelskip.com/community/fun-video-game-related-questions-to-ask)
-      - [All other questions (ES)](https://mundodepreguntas.com/preguntas/)
+        - `general`, `1` - General questions
+        - `phil`, `2` - Philosophical questions
+        - `would`, `3` - *'Would you rather'* questions
+        - `other`, `random`, `4` -  Random questions        
+        <br>
+        [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing)
 
+## Hangman
+- `hangman` - runs a new instance of the classic hangman game (but in Spanish)
+
+    For now the only  category is `animales`
 # To-Do
 - General
     - Add command to make prefix configurable
@@ -54,4 +38,7 @@ Some key features:
     - Add more languages
     - Add ability to show just the requested language
 - Other
-    - Spanish Hangman or other vocabulary game
+    - ~~Spanish Hangman or other vocabulary game~~
+      - add more categories
+    - Reverso contexto
+    - Bad jokes
