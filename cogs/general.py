@@ -48,7 +48,7 @@ class General(commands.Cog):
                 `topic` - Displays random conversation starter 
                 `lst` - Lists available categories
             **Hangman**
-                `hangman` - Starts a new game
+                `hangman` - Starts a new game with Spanish vocabulary
             """
             await safe_send(ctx, embed=green_embed(to_send))
 

@@ -66,7 +66,7 @@ class Hangman(commands.Cog):
         .┃{"............./" if self.errors > 1 else ""} {"|" if self.errors > 2 else ""} {back_slash if self.errors > 3 else ""}
         .┃{"............./" if self.errors > 4 else ""} {back_slash if self.errors > 5 else ""}
         /-\\    
-        {''.join(wrongly_guessed)}
+        {' '.join(wrongly_guessed)}
         """
 
     def get_embed(self, letter, hidden_word, state_str, author, previously_guessed):
