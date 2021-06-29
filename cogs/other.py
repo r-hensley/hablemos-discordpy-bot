@@ -1,8 +1,8 @@
 # Where I test other non-important commands
 
 from random import choice
-from .convo_starter import colors
-from .general import General as gen
+from cogs.convo_starter import colors
+from cogs.general import General as gen
 from discord.ext import commands
 from discord import Embed
 import os
@@ -23,8 +23,8 @@ class Other(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def get_quote(self):
-        with open(f"{dir_path}/cogs/utils/data.txt", 'r', encoding='utf 8') as quotes:
+    def get_quote(self) -> str:
+        with open(f"{dir_path}/cogs/utils/other_data/data.txt", 'r', encoding='utf 8') as quotes:
             lines = quotes.read().splitlines()
             cita = choice(lines)
 
@@ -32,6 +32,9 @@ class Other(commands.Cog):
 
     @commands.command()
     async def cardi(self, ctx):
+        """
+        Qué hice para merecerme este desprecio?
+        """
         emb = embed_quote(self.get_quote())
 
         await gen.safe_send(ctx.channel, ctx, embed=emb)

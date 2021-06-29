@@ -1,9 +1,10 @@
 from discord.ext import commands
 from discord import Embed, Color, Forbidden
 
-SOURCE_URL = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot#sources'
+SOURCE_URL = 'https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing'
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
+PREFIX_ = "$"
 
 
 def green_embed(text):
@@ -29,7 +30,7 @@ class General(commands.Cog):
                 await self.safe_send(ctx, "I was unable to find the command you requested")
                 return
             message = ""
-            message += f"**;{requested.qualified_name}**\n"
+            message += f"**{PREFIX_}{requested.qualified_name}**\n"
             if requested.aliases:
                 message += f"Aliases: `{'`, `'.join(requested.aliases)}`\n"
             if requested.help:
@@ -38,13 +39,15 @@ class General(commands.Cog):
             await self.safe_send(ctx, embed=emb)
         else:
             to_send = """
-            Type `$help <command>` for more info on any command or category.
+            Type `$help <command>` for more info about on any command.
             
-            __**General**__: 
+            **General**: 
                 `info` - Display information and a GitHub link to the source code
-            __**Conversation starters**__: 
+            **Conversation starters**: 
                 `topic` - Displays random conversation starter 
                 `lst` - Lists available categories
+            **Hangman**
+                `hangman` - Starts a new game
             """
             await self.safe_send(ctx, embed=green_embed(to_send))
 
@@ -58,29 +61,12 @@ class General(commands.Cog):
         `$topic` or `$top` defaults to `general`
         
         command(category) - description:
-        `general` - General questions
-        `personal` - Personal questions
-        `open` - Open-ended questions
-        `strange` - Strange/weird questions
-        `phil` - Philosophical questions
-        
-        `games` - Questions related to games
-        `tv` - Questions about series/anime/cartoons
-        `books` - Questions related to books
-        `music` - Questions related to music
-        `tech` - Questions about technology
-        `sport` - Questions related to sports
-        `food` - Questions related to food
-        `lang`- Questions related to language learning
-        `fashion` - Questions related to fashion and clothes
-        `holi` - Questions related to holidays and seasons
-        `movies` - Questions related to movies
-        `travel` - Questions related to travel
-        `edu` - Questions about education
-                
-        `random`, `rand` - A random question from any of the above categories
+        `general`, `1` - General questions
+        `phil`, `2` - Philosophical questions
+        `would`, `3` - *'Would you rather'* questions
+        `other`, `random`, `4` -  Random questions
 
-        [Source]({SOURCE_URL})        
+        [Full list of questions]({SOURCE_URL})        
         """
         await self.safe_send(ctx, embed=green_embed(categories))
 

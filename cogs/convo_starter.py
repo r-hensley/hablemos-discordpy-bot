@@ -1,8 +1,9 @@
 from random import choice
-from .convo_db import random_question, tables, tables_values, tables_keys, tables_first_two_characters
-from .general import General as gen
+from cogs.utils.convo_starter_data.convo_starter_help import categories, get_random_question
+from cogs.general import General as gen
 from discord.ext import commands
 from discord import Embed
+
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
@@ -22,7 +23,6 @@ spa_channels = [809349064029241344, 243858509123289089, 388539967053496322, 4776
 # eng_channels = []
 
 # Embed question
-
 colors = [0x7289da, 0xe74c3c, 0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
           0x3498db, 0x2ecc71, 0x1abc9c]
 
@@ -48,34 +48,29 @@ class ConvoStarter(commands.Cog):
 
         Type `$lst` to see the list of categories.
 
-        Example: `$topic food`"""
+        Examples: `$topic`, `$topic phil`, `$topic 4`"""
 
         table = ""
         if len(category) > 1:
             await ctx.send(ERROR_MESSAGE)
             return
         elif len(category) == 0:
-            table = "generales"
+            table = "general"
+        elif category[0] in categories:
+            table = category[0]
+        elif category[0] in ['1', '2', '3', '4']:
+            table = categories[int(category[0]) - 1]
         else:
-            if category[0] in tables_keys:
-                table = tables[category[0]]
-            elif category[0] == 'rand' or category[0] == 'random' or category[0] == 'ra':
-                table = choice(tables_values)
-            # in case of a spelling mistake:
-            elif category[0][0:2] in tables_first_two_characters:
-                table = tables[tables_keys[tables_first_two_characters.index(category[0][0:2])]]
-            else:
-                await ctx.send(NOT_FOUND)
-                return
+            await ctx.send(NOT_FOUND)
+            return
 
-        question_spa_eng: tuple = random_question(table)
+        question_spa_eng = get_random_question(table)
 
         if ctx.channel.id in spa_channels:
             emb = embed_question(question_spa_eng[0], question_spa_eng[1])
-            await gen.safe_send(ctx.channel, ctx, embed=emb)
         else:
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
-            await gen.safe_send(ctx.channel, ctx, embed=emb)
+        await gen.safe_send(ctx.channel, ctx, embed=emb)
 
 
 def setup(bot):
