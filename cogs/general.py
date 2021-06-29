@@ -65,7 +65,7 @@ class General(commands.Cog):
         `general`, `1` - General questions
         `phil`, `2` - Philosophical questions
         `would`, `3` - *'Would you rather'* questions
-        `other`, `random`, `4` -  Random questions
+        `other`, `4` -  Random questions
 
         [Full list of questions]({SOURCE_URL})        
         """

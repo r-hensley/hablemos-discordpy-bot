@@ -23,7 +23,7 @@ Some key features:
         - `general`, `1` - General questions
         - `phil`, `2` - Philosophical questions
         - `would`, `3` - *'Would you rather'* questions
-        - `other`, `random`, `4` -  Random questions        
+        - `other`,`4` -  Random questions        
         <br>
         [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing)
 
