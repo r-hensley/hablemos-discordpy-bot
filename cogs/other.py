@@ -37,7 +37,7 @@ class Other(commands.Cog):
         """
         emb = embed_quote(self.get_quote())
 
-        await gen.safe_send(ctx.channel, ctx, embed=emb)
+        await safe_send(ctx, embed=emb)
 
 
 def setup(bot):

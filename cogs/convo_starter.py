@@ -1,6 +1,6 @@
 from random import choice
 from cogs.utils.convo_starter_data.convo_starter_help import categories, get_random_question
-from cogs.general import General as gen
+from cogs.general import safe_send
 from discord.ext import commands
 from discord import Embed
 
@@ -70,7 +70,7 @@ class ConvoStarter(commands.Cog):
             emb = embed_question(question_spa_eng[0], question_spa_eng[1])
         else:
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
-        await gen.safe_send(ctx.channel, ctx, embed=emb)
+        await safe_send(ctx, embed=emb)
 
 
 def setup(bot):

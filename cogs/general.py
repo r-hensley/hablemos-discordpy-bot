@@ -11,23 +11,24 @@ def green_embed(text):
     return Embed(description=text, color=Color(int('00ff00', 16)))
 
 
+async def safe_send(destination, content=None, *, embed=None):
+    try:
+        return await destination.send(content, embed=embed)
+    except Forbidden:
+        print(f"I don't have permission to send messages in:\nChannel: #{destination.channel.name}"
+              f"\nGuild: {destination.guild.id}")
+
+
 class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    async def safe_send(self, destination, content=None, *, embed=None):
-        try:
-            return await destination.send(content, embed=embed)
-        except Forbidden:
-            print(f"I don't have permission to send messages in:\nChannel: #{destination.channel.name}"
-                  f"\nGuild: {destination.guild.id}")
 
     @commands.command()
     async def help(self, ctx, arg=''):
         if arg:
             requested = self.bot.get_command(arg)
             if not requested:
-                await self.safe_send(ctx, "I was unable to find the command you requested")
+                await safe_send(ctx, "I was unable to find the command you requested")
                 return
             message = ""
             message += f"**{PREFIX_}{requested.qualified_name}**\n"
@@ -36,7 +37,7 @@ class General(commands.Cog):
             if requested.help:
                 message += requested.help
             emb = green_embed(message)
-            await self.safe_send(ctx, embed=emb)
+            await safe_send(ctx, embed=emb)
         else:
             to_send = """
             Type `$help <command>` for more info about on any command.
@@ -49,7 +50,7 @@ class General(commands.Cog):
             **Hangman**
                 `hangman` - Starts a new game
             """
-            await self.safe_send(ctx, embed=green_embed(to_send))
+            await safe_send(ctx, embed=green_embed(to_send))
 
     @commands.command(aliases=['list', ])
     async def lst(self, ctx):
@@ -68,7 +69,7 @@ class General(commands.Cog):
 
         [Full list of questions]({SOURCE_URL})        
         """
-        await self.safe_send(ctx, embed=green_embed(categories))
+        await safe_send(ctx, embed=green_embed(categories))
 
     @commands.command()
     async def info(self, ctx):
@@ -83,12 +84,12 @@ class General(commands.Cog):
         [Github Repository]({REPO})
         """
 
-        await self.safe_send(ctx, embed=green_embed(text))
+        await safe_send(ctx, embed=green_embed(text))
 
     @commands.command()
     async def ping(self, ctx):
-        await self.safe_send(ctx,
-                             embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
+        await safe_send(ctx,
+                        embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
 
 def setup(bot):
