@@ -115,6 +115,7 @@ class Hangman(commands.Cog):
                 # await ctx.send(f"{user_guess.author} please wait {TIME_LIMIT} seconds")
                 continue
 
+            user_name = user_guess.author
             if len(user_guess) == 1 and user_guess in SPA_ALPHABET:
                 str_guess = gl(str(user_guess))  # get unaccented letter
 
@@ -128,7 +129,7 @@ class Hangman(commands.Cog):
                             hidden_word[i] = word[i]
 
                     if hidden_word == na_word_list:
-                        await ctx.send(f"¡Ganaste, **{ctx.author}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                        await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
                     else:
                         # I hate ternary operators
@@ -152,7 +153,7 @@ class Hangman(commands.Cog):
                         await ctx.send(embed=emb)
 
             elif len(user_guess) == len(word) and (user_guess == word_without_accents or user_guess == word):
-                await ctx.send(f"¡Ganaste, **{ctx.author}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                 return
 
             if user_guess == "quit":
