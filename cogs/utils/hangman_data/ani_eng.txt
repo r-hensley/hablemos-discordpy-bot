@@ -57,7 +57,6 @@ Condor
 Rabbit
 Roadrunner
 Roe
-Budgie
 Cockroach
 Cuckoo
 Crow
@@ -73,8 +72,7 @@ Flamingo
 Seal
 Gazelle
 Hen
-Cock
-Rooster  (US)
+Cock/Rooster(US)
 Prawn
 Goose
 Tick

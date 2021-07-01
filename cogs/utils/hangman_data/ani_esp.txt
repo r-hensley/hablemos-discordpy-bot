@@ -57,7 +57,6 @@ Cóndor
 Conejo
 Correcaminos
 Corzo
-Cotorra austr.
 Cucaracha
 Cuco
 Cuervo
@@ -73,7 +72,6 @@ Flamenco
 Foca
 Gacela
 Gallina
-Gallo
 Gallo
 Gamba
 Ganso
@@ -140,7 +138,7 @@ Oso Panda
 Oso Perezoso
 Oso Polar
 Ostra
-Oveja/s
+Oveja
 Pájaro
 Pájaro Carpintero
 Paloma
@@ -154,7 +152,7 @@ Periquito
 Perro
 Petirrojo
 Pez Espada
-Pez/Pescado
+Pez
 Pingüino
 Polilla
 Pollo
