@@ -9,9 +9,9 @@ from cogs.convo_starter import colors
 from .hangman_help import get_unaccented_letter as gl, get_unaccented_word as gw, get_animal as ga, handle_spaces as hs
 
 # strings for the embeds
-DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 3 segundos"
-ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 3 segundos"
-CORRECT_GUESS = "{} ha adivinado la letra `{}`"
+DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"
+ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 2 segundos"
+CORRECT_GUESS = "{} ha adivinado la letra `{}`. Puedes volver a adivinar en 2 segundos"
 STARTED = "Nueva partida"
 ON_GOING = "Ahorcado (Hangman) - **Animales**"
 ENDED_WIN = "Partida terminada {} ganó. La palabra era {}"
@@ -25,7 +25,7 @@ ACCENTED_LETTERS = {'a': ['a', 'á'],
                     'u': ['u', 'ú', 'ü'], }
 VOWELS = ['a', 'e', 'i', 'o', 'u']
 MAX_ERRORS = 6
-TIME_LIMIT = 3
+TIME_LIMIT = 2
 
 back_slash = "\\"  # can't use back_slash in f-string
 
@@ -49,6 +49,7 @@ def start_game(word):
     .┃ 
     /-\\
     """
+
 
 class Hangman(commands.Cog):
     def __init__(self, bot):
@@ -107,6 +108,7 @@ class Hangman(commands.Cog):
                 return
 
             user_id = user_guess.author.id
+            user_name = user_guess.author
             # add player details to dict and check if user is not in cooldown
             if user_id not in players or time.time() - players[user_id] >= TIME_LIMIT:
                 players[user_guess.author.id] = time.time()
@@ -118,8 +120,8 @@ class Hangman(commands.Cog):
             if len(user_guess) == 1 and user_guess in SPA_ALPHABET:
                 str_guess = gl(str(user_guess))  # get unaccented letter
 
-                if str_guess in already_guessed or str_guess in hidden_word:
-                    emb = self.get_embed(str_guess, hidden_word, ALREADY_GUESSED, ctx.author, already_guessed)
+                if str_guess in already_guessed:
+                    emb = self.get_embed(str_guess, hidden_word, ALREADY_GUESSED, user_name, already_guessed)
                     await ctx.send(embed=emb)
 
                 elif str_guess in na_word_list:
@@ -128,7 +130,8 @@ class Hangman(commands.Cog):
                             hidden_word[i] = word[i]
 
                     if hidden_word == na_word_list:
-                        await ctx.send(f"¡Ganaste, **{ctx.author}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                        await ctx.send(
+                            f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
                     else:
                         # I hate ternary operators
@@ -152,7 +155,7 @@ class Hangman(commands.Cog):
                         await ctx.send(embed=emb)
 
             elif len(user_guess) == len(word) and (user_guess == word_without_accents or user_guess == word):
-                await ctx.send(f"¡Ganaste, **{ctx.author}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                 return
 
             if user_guess == "quit":
@@ -161,6 +164,5 @@ class Hangman(commands.Cog):
                     return
                 else:
                     await ctx.send("Solo quién haya iniciado la partida la puede terminar.\n"
-                                   "De todos la partida se va a terminar en 45 segundos si no se recibe un input")
-
-
+                                   "De todos modos, la partida se va a terminar en 45 segundos si no se recibe ningún "
+                                   "input")
