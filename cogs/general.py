@@ -4,6 +4,7 @@ from discord import Embed, Color, Forbidden
 SOURCE_URL = 'https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing'
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
+INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
 PREFIX_ = "$"
 
 
@@ -78,7 +79,7 @@ class General(commands.Cog):
         """
 
         text = f"""
-        The bot was coded in Python using the [discord.py]({DPY}) API and SQLite3 as the database.
+        The bot was coded in Python using the [discord.py]({DPY}) API.
         
         To report an error or make a suggestion please message <@216848576549093376>
         [Github Repository]({REPO})
@@ -87,7 +88,23 @@ class General(commands.Cog):
         await safe_send(ctx, embed=green_embed(text))
 
     @commands.command()
+    async def invite(self, ctx):
+        """
+        Bot invitation help
+        """
+
+        text = f"""
+        [Invite the bot to your server]({INVITE_LINK})
+        I still have to make the prefix configurable so for now you have to use `$`
+        """
+
+        await safe_send(ctx, embed=green_embed(text))
+
+    @commands.command()
     async def ping(self, ctx):
+        """
+        Ping the bot to see if there are latency issues
+        """
         await safe_send(ctx,
                         embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
