@@ -90,8 +90,9 @@ class Hangman(commands.Cog):
 
         animales = ga()
         word = animales[0].lower()
+        word_list = list(word)
         word_without_accents = gw(word)
-        na_word_list = list(word_without_accents)
+        na_word_list = list(word_without_accents) # if user enters non-accented letter
         hidden_word = hs(list(word_without_accents))
         already_guessed = list()
         players = dict()  # user: time
@@ -129,7 +130,7 @@ class Hangman(commands.Cog):
                         if str_guess == na_word_list[i]:
                             hidden_word[i] = word[i]
 
-                    if hidden_word == na_word_list:
+                    if hidden_word == word_list:
                         await ctx.send(
                             f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
