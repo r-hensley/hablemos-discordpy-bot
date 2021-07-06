@@ -33,8 +33,11 @@ class Hablemos(Bot):
         ignored = (CommandNotFound,)
 
         if isinstance(error, ignored):
-            await self.error_channel.send(
-                f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+            if ctx.message.content[-1] == "$":
+                pass
+            else:
+                await self.error_channel.send(
+                    f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
     async def on_command_completion(self, ctx):
         await self.error_channel.send(
