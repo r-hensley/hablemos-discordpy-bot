@@ -14,6 +14,7 @@ Some key features:
 
 ## General
 - **`help`** Shows available commands and further information on their usage
+- **`invite`** Invite link to the bot
 - **`info`** Information about the bot
 
 ## Conversation starters
