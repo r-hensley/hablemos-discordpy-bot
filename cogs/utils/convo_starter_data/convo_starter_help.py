@@ -12,9 +12,7 @@ def no():
 
 
 def get_random_question(category: str) -> tuple:
-    print('I work until here')
     with open(f"{dir_path}/convo_starter_data/{category}.csv") as csv_file:
-        print('I work until here too')
         csv_reader = csv.reader(csv_file, delimiter=',')
         spa_q = []
         eng_q = []
