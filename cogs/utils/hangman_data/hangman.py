@@ -139,7 +139,7 @@ class Hangman(commands.Cog):
                         already_guessed.extend(
                             ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
-                        emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, ctx.author, already_guessed)
+                        emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
                         await ctx.send(embed=emb)
 
                 else:
@@ -147,7 +147,7 @@ class Hangman(commands.Cog):
                         ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
                     self.errors += 1
-                    emb = self.get_embed(str_guess, hidden_word, DOES_NOT_EXIST, ctx.author, already_guessed)
+                    emb = self.get_embed(str_guess, hidden_word, DOES_NOT_EXIST, user_name, already_guessed)
 
                     if self.errors > MAX_ERRORS:
                         await ctx.send(f"Perdiste lol. La palabra correcta era **{animales[0]}** ({animales[1]})")
