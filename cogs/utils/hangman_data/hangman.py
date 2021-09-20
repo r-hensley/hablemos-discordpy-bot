@@ -12,7 +12,7 @@ from .hangman_help import get_unaccented_letter as gl, get_unaccented_word as gw
 DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"
 ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 2 segundos"
 CORRECT_GUESS = "{} ha adivinado la letra `{}`"
-STARTED = "Nueva partida"
+STARTED = "Nueva partida - **Animales**"
 ON_GOING = "Ahorcado (Hangman) - **Animales**"
 TIME_OUT = "La sesión ha expirado"
 SPA_ALPHABET = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz"
