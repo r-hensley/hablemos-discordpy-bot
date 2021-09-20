@@ -142,8 +142,8 @@ class Hangman(commands.Cog):
                             ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
                         emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
-                        players[user_guess.author.id] = 0 # no cooldown, guessed correctly
                         await ctx.send(embed=emb)
+                        players[user_guess.author.id] = 0  # no cooldown, guessed correctly
 
                 else:
                     already_guessed.extend(
