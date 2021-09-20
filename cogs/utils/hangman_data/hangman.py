@@ -111,7 +111,7 @@ class Hangman(commands.Cog):
             # add player details to dict and check if user is not in cooldown
             if user_id not in players or time.time() - players[user_id] >= TIME_LIMIT:
                 '''Add player to players dictionary and check if cooled down'''
-                players[user_guess.author.id] = time.time()
+                players[user_id] = time.time()
                 user_guess = user_guess.content.lower()
             else:
                 # await ctx.send(f"{user_guess.author} please wait {TIME_LIMIT} seconds")
@@ -137,13 +137,13 @@ class Hangman(commands.Cog):
 
                     else:
                         '''Guessed a letter correctly'''
+                        players[user_id] = time.time() - TIME_LIMIT - 1  # no cooldown, guessed correctly
                         # I hate ternary operators
                         already_guessed.extend(
                             ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
                         emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
                         await ctx.send(embed=emb)
-                        players[user_guess.author.id] = 0  # no cooldown, guessed correctly
 
                 else:
                     already_guessed.extend(
