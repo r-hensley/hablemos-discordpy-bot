@@ -11,11 +11,9 @@ from .hangman_help import get_unaccented_letter as gl, get_unaccented_word as gw
 # strings for the embeds
 DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"
 ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 2 segundos"
-CORRECT_GUESS = "{} ha adivinado la letra `{}`. Puedes volver a adivinar en 2 segundos"
+CORRECT_GUESS = "{} ha adivinado la letra `{}`"
 STARTED = "Nueva partida"
 ON_GOING = "Ahorcado (Hangman) - **Animales**"
-ENDED_WIN = "Partida terminada {} ganó. La palabra era {}"
-ENDED_LOST = "Partida terminada. Ya valió xD. La palabra era {}"
 TIME_OUT = "La sesión ha expirado"
 SPA_ALPHABET = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz"
 ACCENTED_LETTERS = {'a': ['a', 'á'],
@@ -112,6 +110,7 @@ class Hangman(commands.Cog):
             user_name = user_guess.author
             # add player details to dict and check if user is not in cooldown
             if user_id not in players or time.time() - players[user_id] >= TIME_LIMIT:
+                '''Add player to players dictionary and check if cooled down'''
                 players[user_guess.author.id] = time.time()
                 user_guess = user_guess.content.lower()
             else:
@@ -131,15 +130,19 @@ class Hangman(commands.Cog):
                             hidden_word[i] = word[i]
 
                     if hidden_word == word_list:
+                        '''Final guess is the last hidden letter'''
                         await ctx.send(
                             f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
+
                     else:
+                        '''Guessed a letter correctly'''
                         # I hate ternary operators
                         already_guessed.extend(
                             ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
                         emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
+                        players[user_guess.author.id] = 0 # no cooldown, guessed correctly
                         await ctx.send(embed=emb)
 
                 else:
