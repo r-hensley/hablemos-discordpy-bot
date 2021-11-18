@@ -125,8 +125,8 @@ class Hangman(commands.Cog):
                     await ctx.send(embed=emb)
 
                 elif str_guess in na_word_list:
-                    for i in range(len(na_word_list)):
-                        if str_guess == na_word_list[i]:
+                    for i, c in enumerate(na_word_list):
+                        if str_guess == c:
                             hidden_word[i] = word[i]
 
                     if hidden_word == word_list:
