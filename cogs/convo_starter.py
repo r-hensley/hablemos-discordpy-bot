@@ -4,7 +4,6 @@ from cogs.general import safe_send
 from discord.ext import commands
 from discord import Embed
 
-
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
 # SUGGESTION_FORM = "https://docs.google.com/forms/d/1yDMkL0NLlPWWuNy2veMr3PLoNjYc2LTD_pnqYurP91c/"

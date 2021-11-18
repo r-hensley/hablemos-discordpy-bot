@@ -7,6 +7,7 @@ categories = ['general', 'phil', 'would', 'other']
 
 dir_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
+
 def no():
     return 'cheese'
 

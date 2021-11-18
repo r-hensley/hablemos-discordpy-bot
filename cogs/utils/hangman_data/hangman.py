@@ -90,7 +90,7 @@ class Hangman(commands.Cog):
         word = animales[0].lower()
         word_list = list(word)
         word_without_accents = gw(word)
-        na_word_list = list(word_without_accents) # if user enters non-accented letter
+        na_word_list = list(word_without_accents)  # if user enters non-accented letter
         hidden_word = hs(list(word_without_accents))
         already_guessed = list()
         players = {}  # user: time
@@ -110,11 +110,10 @@ class Hangman(commands.Cog):
             user_name = user_guess.author
             # add player details to dict and check if user is not in cooldown
             if user_id not in players or time.time() - players[user_id] >= TIME_LIMIT:
-                '''Add player to players dictionary and check if cooled down'''
+                # Add player to players dictionary and check if cooled down
                 players[user_id] = time.time()
                 user_guess = user_guess.content.lower()
             else:
-                # await ctx.send(f"{user_guess.author} please wait {TIME_LIMIT} seconds")
                 continue
 
             if len(user_guess) == 1 and user_guess in SPA_ALPHABET:
@@ -130,12 +129,12 @@ class Hangman(commands.Cog):
                             hidden_word[i] = word[i]
 
                     if hidden_word == word_list:
-                        '''Final guess is the last hidden letter'''
+                        # Final guess is the last hidden letter
                         await ctx.send(
                             f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
 
-                    '''Guessed a letter correctly'''
+                    # Guessed a letter correctly
                     players[user_id] = time.time() - TIME_LIMIT - 1  # no cooldown, guessed correctly
                     # I hate ternary operators
                     already_guessed.extend(

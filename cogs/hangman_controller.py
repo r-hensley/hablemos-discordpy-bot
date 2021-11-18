@@ -8,7 +8,7 @@ class HangmanController(commands.Cog):
         self.game_in_progress = False
         self.channels = []
 
-    @commands.command(aliases=['hm', 'hang',])
+    @commands.command(aliases=['hm', 'hang', ])
     async def hangman(self, ctx):
         """
         (still experimental, please let me know of any errors)
