@@ -93,7 +93,7 @@ class Hangman(commands.Cog):
         na_word_list = list(word_without_accents) # if user enters non-accented letter
         hidden_word = hs(list(word_without_accents))
         already_guessed = list()
-        players = dict()  # user: time
+        players = {}  # user: time
 
         emb_init = embed_quote(STARTED, start_game(hidden_word))
         await ctx.send(embed=emb_init)
