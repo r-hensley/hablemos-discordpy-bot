@@ -1,6 +1,3 @@
-# import detectlanguage
-# detectlanguage.configuration.api_key = "656d75aa664ef2ebd47c1d31fc669614"
-#
 # from .general import General as gen
 # from .convo_starter import colors
 #
