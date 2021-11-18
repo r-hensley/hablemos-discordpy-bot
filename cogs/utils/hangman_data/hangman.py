@@ -158,7 +158,7 @@ class Hangman(commands.Cog):
                     else:
                         await ctx.send(embed=emb)
 
-            elif len(user_guess) == len(word) and (user_guess == word_without_accents or user_guess == word):
+            elif user_guess in (word_without_accents, word):
                 await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                 return
 
