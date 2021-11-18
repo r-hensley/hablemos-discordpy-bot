@@ -135,15 +135,14 @@ class Hangman(commands.Cog):
                             f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
 
-                    else:
-                        '''Guessed a letter correctly'''
-                        players[user_id] = time.time() - TIME_LIMIT - 1  # no cooldown, guessed correctly
-                        # I hate ternary operators
-                        already_guessed.extend(
-                            ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
+                    '''Guessed a letter correctly'''
+                    players[user_id] = time.time() - TIME_LIMIT - 1  # no cooldown, guessed correctly
+                    # I hate ternary operators
+                    already_guessed.extend(
+                        ACCENTED_LETTERS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
 
-                        emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
-                        await ctx.send(embed=emb)
+                    emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
+                    await ctx.send(embed=emb)
 
                 else:
                     already_guessed.extend(
@@ -153,10 +152,10 @@ class Hangman(commands.Cog):
                     emb = self.get_embed(str_guess, hidden_word, DOES_NOT_EXIST, user_name, already_guessed)
 
                     if self.errors > MAX_ERRORS:
-                        await ctx.send(f"Perdiste lol. La palabra correcta era **{animales[0]}** ({animales[1]})")
+                        await ctx.send(f"Perdiste jeje. La palabra correcta era **{animales[0]}** ({animales[1]})")
                         return
-                    else:
-                        await ctx.send(embed=emb)
+
+                    await ctx.send(embed=emb)
 
             elif user_guess in (word_without_accents, word):
                 await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
@@ -166,7 +165,6 @@ class Hangman(commands.Cog):
                 if ctx.author.id == user_id:
                     await ctx.send("Partida terminada")
                     return
-                else:
-                    await ctx.send("Solo quién haya iniciado la partida la puede terminar.\n"
-                                   "De todos modos, la partida se va a terminar en 45 segundos si no se recibe ningún "
-                                   "input")
+                await ctx.send("Solo quién haya iniciado la partida la puede terminar.\n"
+                               "De todos modos, la partida se va a terminar en 45 segundos si no se recibe ningún "
+                               "input")

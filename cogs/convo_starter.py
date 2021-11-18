@@ -54,7 +54,7 @@ class ConvoStarter(commands.Cog):
         if len(category) > 1:
             await ctx.send(ERROR_MESSAGE)
             return
-        elif len(category) == 0:
+        if len(category) == 0:
             table = "general"
         elif category[0] in categories:
             table = category[0]
