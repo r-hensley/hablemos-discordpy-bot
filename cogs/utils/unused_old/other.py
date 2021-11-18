@@ -18,24 +18,25 @@ def embed_quote(quote):
     return embed
 
 
+def get_quote() -> str:
+    with open(f"{dir_path}/cogs/utils/other_data/data.txt", 'r', encoding='utf 8') as quotes:
+        lines = quotes.read().splitlines()
+        cita = choice(lines)
+
+    return cita
+
+
 class Other(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-
-    def get_quote(self) -> str:
-        with open(f"{dir_path}/cogs/utils/other_data/data.txt", 'r', encoding='utf 8') as quotes:
-            lines = quotes.read().splitlines()
-            cita = choice(lines)
-
-        return cita
 
     @commands.command()
     async def cardi(self, ctx):
         """
         Qué hice para merecerme este desprecio?
         """
-        emb = embed_quote(self.get_quote())
+        emb = embed_quote(get_quote())
 
         await safe_send(ctx, embed=emb)
 
