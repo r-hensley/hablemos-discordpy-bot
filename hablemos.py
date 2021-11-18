@@ -7,7 +7,7 @@ from cogs.general import PREFIX_
 load_dotenv('.env')
 
 PREFIX = PREFIX_
-cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.other', 'cogs.hangman_controller']
+cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller']
 
 
 class Hablemos(Bot):
