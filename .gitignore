@@ -2,3 +2,5 @@
 __pycache__/
 venv/
 .env
+cogs/utils/hangman_data/testy.py
+
