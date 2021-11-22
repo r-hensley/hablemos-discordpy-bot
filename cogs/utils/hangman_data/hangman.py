@@ -3,10 +3,11 @@ from random import choice
 import time
 
 from discord.ext import commands
-from discord import Embed
+from discord import Embed, File
 
 from cogs.convo_starter import colors
-from .hangman_help import get_unaccented_letter as gl, get_unaccented_word as gw, get_animal as ga, handle_spaces as hs
+from .hangman_help import get_unaccented_letter as gl, get_unaccented_word as gw, get_animal as ga, handle_spaces as hs, \
+    get_random_image as gi
 
 # strings for the embeds
 DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"
@@ -14,6 +15,9 @@ ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 2
 CORRECT_GUESS = "{} ha adivinado la letra `{}`"
 STARTED = "Nueva partida - **Animales**"
 ON_GOING = "Ahorcado (Hangman) - **Animales**"
+ENDED = "Ahorcado (Hangman) - Animales - Partida terminada"
+WINNER = "¡Ganaste, **{}**! La palabra correcta era **{}** ({})"
+LOSER = "Perdiste jeje. La palabra correcta era **{}** ({})"
 TIME_OUT = "La sesión ha expirado"
 SPA_ALPHABET = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz"
 ACCENTED_LETTERS = {'a': ['a', 'á'],
@@ -33,6 +37,16 @@ def embed_quote(header, state):
     embed.title = header
     embed.description = state
     return embed
+
+
+def final_embed(winner, animals, result=True):
+    animal_image = gi(animals[1].replace(' ', ''))
+    file = File(animal_image[0], filename=animal_image[1])
+    embed = Embed(color=choice(colors))
+    embed.title = ENDED
+    embed.description = WINNER.format(winner, animals[0], animals[1]) if result else LOSER.format(animals[0], animals[1])
+    embed.set_image(url=f"attachment://{animal_image[1]}")
+    return file, embed
 
 
 # new hangman
@@ -78,7 +92,13 @@ class Hangman(commands.Cog):
                                                       hidden_word,
                                                       previously_guessed))
 
-    # @commands.command(aliases=['hm', ])
+    # async def myf(self, ctx):
+    #     embed = Embed()
+    #     embed.title = "Cheese"
+    #     embed.set_image(url=gi("Vulture"))
+    #     embed.set_footer(text="cheese")
+    #     await ctx.send(embed=embed)
+
     async def hangman(self, ctx):
         print("New game started")
 
@@ -87,6 +107,7 @@ class Hangman(commands.Cog):
             # return m.author == ctx.author and m.channel == ctx.channel
 
         animales = ga()
+        print(animales)
         word = animales[0].lower()
         word_list = list(word)
         word_without_accents = gw(word)
@@ -130,8 +151,8 @@ class Hangman(commands.Cog):
 
                     if hidden_word == word_list:
                         # Final guess is the last hidden letter
-                        await ctx.send(
-                            f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                        end_embed = final_embed(user_name, animales)
+                        await ctx.send(file=end_embed[0], embed=end_embed[1])
                         return
 
                     # Guessed a letter correctly
@@ -151,13 +172,15 @@ class Hangman(commands.Cog):
                     emb = self.get_embed(str_guess, hidden_word, DOES_NOT_EXIST, user_name, already_guessed)
 
                     if self.errors > MAX_ERRORS:
-                        await ctx.send(f"Perdiste jeje. La palabra correcta era **{animales[0]}** ({animales[1]})")
+                        end_embed = final_embed(user_name, animales, False)
+                        await ctx.send(file=end_embed[0], embed=end_embed[1])
                         return
 
                     await ctx.send(embed=emb)
 
             elif user_guess in (word_without_accents, word):
-                await ctx.send(f"¡Ganaste, **{user_name}**! La palabra correcta era **{animales[0]}** ({animales[1]})")
+                end_embed = final_embed(user_name, animales)
+                await ctx.send(file=end_embed[0], embed=end_embed[1])
                 return
 
             if user_guess == "quit":
