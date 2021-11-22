@@ -72,7 +72,7 @@ Flamingo
 Seal
 Gazelle
 Hen
-Cock/Rooster(US)
+Rooster
 Prawn
 Goose
 Tick
@@ -178,13 +178,13 @@ Toad
 Sardine
 Snake
 Tapir
-Tarántula
+Tarantula
 Badger
 Calf
 Shark
 Tiger
 Mole
-Thrush
+Komodo dragon
 Bull
 Turtle
 Tortoise
