@@ -5,7 +5,9 @@ dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 
 
 def create_image(user_name, user_avatar, message_content):
+    print("I work 1")
     shot = WebShot()
+    print("I work 2")
     shot.config = Config(wkhtmltopdf="/app/bin/wkhtmltopdf", wkhtmltoimage="/app/bin/wkhtmltoimage")
     shot.quality = 100
     shot.params = {"--crop-h": 266, "--crop-w": 637, "--encoding": "utf-8"}
