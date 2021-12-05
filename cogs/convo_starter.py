@@ -6,14 +6,8 @@ from discord import Embed
 
 # Embed Message
 DEEPL_URL = "https://www.deepl.com/translator"
-# SUGGESTION_FORM = "https://docs.google.com/forms/d/1yDMkL0NLlPWWuNy2veMr3PLoNjYc2LTD_pnqYurP91c/"
-# FOOTER_ENG = f"Questions translated using [DeepL]({DEEPL_URL}). Feel free to use [this link]({SUGGESTION_FORM}) " \
-#              f"to report a mistake or suggest a question"
-# FOOTER_ESP = f"\nPreguntas traducidas con [DeepL]({DEEPL_URL}). Utiliza [este enlace]({SUGGESTION_FORM}) " \
-#              f"para reportar un error o sugerir una pregunta"
 ERROR_MESSAGE = "The proper format is `$topic <topic>` eg. `$topic movies`. Please see " \
                 "`$help topic` for more info"
-
 NOT_FOUND = "Topic not found! Please type ``$lst`` to see a list of topics"
 
 # Spa and Eng Channel IDs
