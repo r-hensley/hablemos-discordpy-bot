@@ -8,3 +8,6 @@ multidict==5.1.0
 python-dotenv==0.15.0
 typing-extensions==3.7.4.3
 yarl==1.6.3
+
+asyncio~=3.4.3
+htmlwebshot~=0.1.2
