@@ -1,11 +1,12 @@
 from os import path
-from htmlwebshot import WebShot
+from htmlwebshot import WebShot, Config
 
 dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 
 
 def create_image(user_name, user_avatar, message_content):
     shot = WebShot()
+    shot.config = Config(wkhtmltopdf="/app/bin/wkhtmltopdf")
     shot.quality = 100
     shot.params = {"--crop-h": 266, "--crop-w": 637, "--encoding": "utf-8"}
     font_size = ""
