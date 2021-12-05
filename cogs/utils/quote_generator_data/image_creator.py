@@ -9,7 +9,8 @@ def create_image(user_name, user_avatar, message_content):
     shot.quality = 100
     shot.params = {"--crop-h": 266, "--crop-w": 637, "--encoding": "utf-8"}
     font_size = ""
-
+    print("I reached here")
+    print(shot)
     font_sizes = {
         60: 'x-large',
         100: 'large',
@@ -80,4 +81,5 @@ def create_image(user_name, user_avatar, message_content):
 
     img_path = f"{dir_path}/quote_generator_data/picture.png"
     shot.create_pic(html=html, css=css, output=img_path)
+    print("Here too")
     return img_path
