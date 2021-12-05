@@ -1,13 +1,13 @@
-import os
+from os import getenv
 from discord import Game, Embed, Color
-from discord.ext.commands import Bot, CommandNotFound, Cog
+from discord.ext.commands import Bot, CommandNotFound, CommandOnCooldown
 from dotenv import load_dotenv
 from cogs.general import PREFIX_
 
 load_dotenv('.env')
 
 PREFIX = PREFIX_
-cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller']
+cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller', 'cogs.quote_generator']
 
 
 class Hablemos(Bot):
@@ -30,14 +30,16 @@ class Hablemos(Bot):
         await self.change_presence(activity=Game(f'{PREFIX}topic for a conversation starter'))
 
     async def on_command_error(self, ctx, error):
-        ignored = (CommandNotFound,)
-
-        if isinstance(error, ignored):
+        if isinstance(error, CommandOnCooldown):
             if ctx.message.content[-1] == "$":
                 pass
             else:
                 await self.error_channel.send(
                     f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+
+        if isinstance(error, CommandOnCooldown):
+            await ctx.send(f"This command is on cooldown.  Try again in {round(error.retry_after)} seconds.")
+            return
 
     async def on_command_completion(self, ctx):
         await self.error_channel.send(
@@ -45,4 +47,4 @@ class Hablemos(Bot):
 
 
 bot = Hablemos()
-bot.run(os.getenv('BOT_TOKEN'))
+bot.run(getenv('BOT_TOKEN'))
