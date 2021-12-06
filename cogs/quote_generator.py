@@ -59,7 +59,8 @@ class QuoteGenerator(Cog):
 
         if len(user_input) == 1 and len(user_input[0]) == 18 and user_input[0].isdigit():
             return await ctx.send(
-                "You tried to use a message_id. Please use a link or just a regular message. See `$help quote` for correct usage")
+                "You tried to use a message_id. Please use a link or just a regular message. See `$help quote` for "
+                "correct usage")
         user_nick = ""
         user_avatar = ""
         message_content = ""
@@ -83,7 +84,7 @@ class QuoteGenerator(Cog):
             user_avatar = get_img_url(user_id, user.avatar)
         else:
             message_content = remove_emoji_from_message(' '.join(user_input))
-            user_nick = ctx.author.display_name if ctx.author.nick is None else ctx.author.nick
+            user_nick = ctx.author.display_name if ctx.author.nick is None else give_emoji_free_text(ctx.author.nick)
             user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
 
         if len(message_content) > 150:
