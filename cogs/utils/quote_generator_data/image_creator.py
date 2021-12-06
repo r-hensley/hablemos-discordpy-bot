@@ -1,10 +1,15 @@
 from os import path
 import imgkit
 import emoji
+from re import sub
 
 
 def give_emoji_free_text(text):
     return emoji.get_emoji_regexp().sub(r'', text)[:28]
+
+
+def remove_emoji_from_message(message):
+    return sub("<:[A-Za-z0-9_]+:([0-9]+)>", '', message).replace("  ", " ")
 
 
 dir_path = path.dirname(path.dirname(path.realpath(__file__)))
@@ -17,7 +22,7 @@ def create_image(user_name, user_avatar, message_content):
         'encoding': "UTF-8",
         'enable-local-file-access': None
     }
-
+    message_content = remove_emoji_from_message(message_content)
     user_name = give_emoji_free_text(user_name)
 
     font_size = ""
