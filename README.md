@@ -34,7 +34,7 @@ Some key features:
 
     For now the only  category is `animales`
 
-## Fake Quote generator
+## Quote generator
 - `quote <message>` or `quote <message_link>` - generates a dramatic looking quote using a user's message
 
 example:
