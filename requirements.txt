@@ -3,6 +3,7 @@ async-timeout==3.0.1
 asyncio==3.4.3
 attrs==20.3.0
 chardet==3.0.4
+emoji==1.6.1
 idna==3.1
 imgkit==1.2.2
 multidict==5.1.0
