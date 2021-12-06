@@ -1,11 +1,5 @@
 from os import path
 import imgkit
-import emoji
-from re import sub
-
-
-def give_emoji_free_text(text):
-    return emoji.get_emoji_regexp().sub(r'', text)[:28]
 
 
 def remove_emoji_from_message(message):

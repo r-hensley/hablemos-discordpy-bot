@@ -2,14 +2,25 @@
 Fun utility that creates quotes using the message content and username of a user
 and converts it to an image using html and css
 """
+from re import sub
 
 from discord.ext.commands import Cog, command, cooldown, BucketType
 from discord import Embed, File
+import emoji
+
 from cogs.utils.quote_generator_data.image_creator import create_image
 
 
 def get_img_url(user_id: int, url_identifier: str):
     return f"https://cdn.discordapp.com/avatars/{user_id}/{url_identifier}.png?size=256"
+
+
+def remove_emoji_from_message(message):
+    return sub("<:[A-Za-z0-9_]+:([0-9]+)>", '', message).replace("  ", " ")
+
+
+def give_emoji_free_text(text):
+    return emoji.get_emoji_regexp().sub(r'', text)[:28]
 
 
 def create_image_embed(url):
@@ -28,9 +39,10 @@ class QuoteGenerator(Cog):
     @cooldown(1, 10, type=BucketType.user)
     async def quote(self, ctx, *user_input):
         """
-        (still testing, please report any errors)
-        Generates a dramatically themed quote using a message url or your own message. Copy the url from a message you want quoted
-        and paste next to the command. Images and custom images won't show up and there's a limit to 150 words.
+        (still testing, please report any errors or suggestions)
+        Generates a dramatically themed quote using a message url or your own message.
+        Copy the url from a message you want quoted and paste next to the command.
+        Images and custom emojis won't show up and there's a limit to 150 words.
 
         Example usage:
         `$quote https://discord.com/channels/731403448502845501/808679873837137940/916938526329798718`
@@ -46,7 +58,8 @@ class QuoteGenerator(Cog):
             return await ctx.send("Please see type `$help quote` for info on correct usage")
 
         if len(user_input) == 1 and len(user_input[0]) == 18 and user_input[0].isdigit():
-            return await ctx.send("You tried to use a message_id. Please use a link or just a regular message. See `$help quote` for correct usage")
+            return await ctx.send(
+                "You tried to use a message_id. Please use a link or just a regular message. See `$help quote` for correct usage")
         user_nick = ""
         user_avatar = ""
         message_content = ""
@@ -69,7 +82,7 @@ class QuoteGenerator(Cog):
             user_nick = user.display_name if user.nick is None else user.nick
             user_avatar = get_img_url(user_id, user.avatar)
         else:
-            message_content = ' '.join(user_input)
+            message_content = remove_emoji_from_message(' '.join(user_input))
             user_nick = ctx.author.display_name if ctx.author.nick is None else ctx.author.nick
             user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
 
