@@ -61,7 +61,7 @@ def create_image(user_name, user_avatar, message_content):
             .author {{
                 color: white;
                 font-size: larger;
-                font-family: cursive;
+                font-family: Cursive;
             }}
 
             span:after,
