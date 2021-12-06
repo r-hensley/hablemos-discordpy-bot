@@ -53,7 +53,7 @@ class General(commands.Cog):
             **Hangman**
                 `hangman` - Starts a new game with Spanish vocabulary
             **Quote generator** 
-                `quote <message> or `quote <message_link> - Generates a "quote image" of a user's message             
+                `quote <message>` or `quote <message_link>` - Generates a "quote image" of a user's message             
             """
             await safe_send(ctx, embed=green_embed(to_send))
 
