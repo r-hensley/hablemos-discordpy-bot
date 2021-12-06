@@ -1,5 +1,6 @@
 from os import path, walk
 from random import randint, choice
+from typing import List
 
 dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 
@@ -13,7 +14,7 @@ acentos = {
 }
 
 
-def get_unaccented_word(word):
+def get_unaccented_word(word) -> List[str]:
     no_accent = []
     for letter in list(word):
         if letter in list(acentos.keys()):
@@ -39,7 +40,7 @@ def get_animal():
     return esp, eng
 
 
-def get_random_image(img: str) -> list[str]:
+def get_random_image(img: str):
     ani = []
     for root, _, files in walk(f"{dir_path}/hangman_data/animals_images/{img}"):
 
