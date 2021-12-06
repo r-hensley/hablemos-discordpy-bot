@@ -79,8 +79,8 @@ class QuoteGenerator(Cog):
             message = await channel.fetch_message(msg_id)
             user_id = message.author.id
             user = await server.fetch_member(user_id)
-            message_content = message.content
-            user_nick = user.display_name if user.nick is None else user.nick
+            message_content = remove_emoji_from_message(message.content)
+            user_nick = user.display_name if user.nick is None else give_emoji_free_text(user.nick)
             user_avatar = get_img_url(user_id, user.avatar)
         else:
             message_content = remove_emoji_from_message(' '.join(user_input))
