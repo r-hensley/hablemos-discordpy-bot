@@ -11,6 +11,7 @@ Some key features:
 - [General](#general)
 - [Conversation starters](#conversation-starters)
 - [Hangman](#hangman)
+- [Quote generator](#Quote-generator)
 
 ## General
 - **`help`** Shows available commands and further information on their usage
@@ -32,14 +33,22 @@ Some key features:
 - `hangman` - runs a new instance of the classic hangman game (but in Spanish)
 
     For now the only  category is `animales`
+
+## Fake Quote generator
+- `quote <message>` or `quote <message_link>` - generates a dramatic looking quote using a user's message
+
+example:
+![quote example](https://cdn.discordapp.com/attachments/808679873837137940/917384356073443328/unknown.png)
 # To-Do
 - General
-    - Add command to make prefix configurable
+    - Add functionality to make prefix configurable
 - Conversation starters
     - Add more languages
     - Add ability to show just the requested language
+- Hangman
+  - add more categories
+- Quote generator
+  - Use different image style
 - Other
     - ~~Spanish Hangman or other vocabulary game~~
-      - add more categories
     - Reverso contexto
-    - Bad jokes
