@@ -38,7 +38,9 @@ Some key features:
 - `quote <message>` or `quote <message_link>` - generates a dramatic looking quote using a user's message
 
 example:
+
 ![quote example](https://cdn.discordapp.com/attachments/808679873837137940/917384356073443328/unknown.png)
+<br>
 # To-Do
 - General
     - Add functionality to make prefix configurable
