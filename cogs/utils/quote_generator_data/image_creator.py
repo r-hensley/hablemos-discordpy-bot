@@ -1,19 +1,18 @@
 from os import path
-from htmlwebshot import WebShot, Config
+import imgkit
 
 dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 
 
 def create_image(user_name, user_avatar, message_content):
-    print("I work 1")
-    shot = WebShot()
-    print("I work 2")
-    shot.config = Config(wkhtmltopdf="/app/bin/wkhtmltopdf", wkhtmltoimage="/app/bin/wkhtmltoimage")
-    shot.quality = 100
-    shot.params = {"--crop-h": 266, "--crop-w": 637, "--encoding": "utf-8"}
+    options = {
+        'format': 'png',
+        'crop-w': '637',
+        'encoding': "UTF-8",
+    }
+
     font_size = ""
-    print("I reached here")
-    print(shot)
+
     font_sizes = {
         60: 'x-large',
         100: 'large',
@@ -26,12 +25,65 @@ def create_image(user_name, user_avatar, message_content):
             break
 
     html = f'''
-            <img src="{user_avatar}" class="myImage"/>
-            <div class="quote">
-                <p class="main-quote">{message_content}</p>
-                <p class="author"><span> {user_name} </span></p>
-            </div>
-    '''
+            <html>
+            <head>
+            <style>
+                .myImage {{
+            float: left;
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+            border: 2px solid white;
+            border-right: 0;
+            }}
+
+
+            .quote {{
+                float: left;
+                width: 376px;
+                height: 256px;
+                margin-top: 0;
+                margin-bottom: 0;
+                background-color: #0c0c0c;
+                border: 2px solid white;
+                border-left: 0;
+
+                text-align: center;
+                }}
+
+            .main-quote {{
+            color: white;
+            font-family: sans-serif;
+            font-size: {font_size};
+            font-style: italic;
+            padding: 10% 5% 5%;
+            }}
+
+            .author {{
+                color: white;
+                font-size: larger;
+                font-family: cursive;
+            }}
+
+            span:after,
+        span:before{{
+            content:"\\00a0\\00a0\\00a0\\00a0\\00a0";
+            text-decoration:line-through;
+        }}
+
+        body {{
+            padding: 0;
+            margin: 0;
+        }}
+            </style>
+            </head>
+                <img src="{user_avatar}" class="myImage"/>
+                <div class="quote">
+                    <p class="main-quote">{message_content}</p>
+                    <p class="author"><span> {user_name} </span></p>
+                </div>
+            </html>
+        '''
+
     css = f'''
     .myImage {{
         float: left;
@@ -39,37 +91,37 @@ def create_image(user_name, user_avatar, message_content):
         filter: grayscale(100%);
         border: 2px solid white;
         border-right: 0;
-      }}
+        }}
 
 
-      .quote {{
-          float: left;
-          width: 376px;
-          height: 256px;
-          margin-top: 0;
-          margin-bottom: 0;
-          background-color: #0c0c0c;
-          border: 2px solid white;
-          border-left: 0;
+        .quote {{
+            float: left;
+            width: 376px;
+            height: 256px;
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: #0c0c0c;
+            border: 2px solid white;
+            border-left: 0;
 
-          text-align: center;
-          }}
+            text-align: center;
+            }}
 
-      .main-quote {{
-        color: antiquewhite;
+        .main-quote {{
+        color: white;
         font-family: sans-serif;
         font-size: {font_size};
         font-style: italic;
         padding: 10% 5% 5%;
-      }}
+        }}
 
-      .author {{
-          color: antiquewhite;
-          font-size: larger;
-          font-family: cursive;
-      }}
+        .author {{
+            color: white;
+            font-size: large;
+            font-family: Cursive;
+        }}
 
-      span:after,
+        span:after,
     span:before{{
         content:"\\00a0\\00a0\\00a0\\00a0\\00a0";
         text-decoration:line-through;
@@ -81,8 +133,7 @@ def create_image(user_name, user_avatar, message_content):
     }}
 
     '''
-
     img_path = f"{dir_path}/quote_generator_data/picture.png"
-    shot.create_pic(html=html, css=css, output=img_path)
-    print("Here too")
+    imgkit.from_string(html, img_path, options=options)
     return img_path
+

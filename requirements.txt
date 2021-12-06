@@ -3,10 +3,11 @@ async-timeout==3.0.1
 asyncio==3.4.3
 attrs==20.3.0
 chardet==3.0.4
-htmlwebshot==0.1.2
 idna==3.1
+imgkit==1.2.2
 multidict==5.1.0
 py-cord==1.7.3
 python-dotenv==0.15.0
+six==1.16.0
 typing-extensions==3.7.4.3
 yarl==1.6.3

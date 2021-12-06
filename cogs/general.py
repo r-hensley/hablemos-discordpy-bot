@@ -5,8 +5,8 @@ SOURCE_URL = 'https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVS
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
 INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
-PREFIX_ = "$" # the real one, have to make it configurable some day
-# PREFIX_ = "-" # for testing
+# PREFIX_ = "$" # the real one, have to make it configurable some day
+PREFIX_ = "-" # for testing
 
 
 def green_embed(text):

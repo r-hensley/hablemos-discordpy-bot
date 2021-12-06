@@ -7,10 +7,12 @@ from cogs.general import PREFIX_
 load_dotenv('.env')
 
 PREFIX = PREFIX_
-cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller']
+cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller', 'cogs.quote_generator']
 
 
 class Hablemos(Bot):
+    error_channel = ""
+    online_channel = ""
 
     def __init__(self):
         super().__init__(description="Bot by Jaleel#6408", command_prefix=PREFIX, owner_id=216848576549093376,
