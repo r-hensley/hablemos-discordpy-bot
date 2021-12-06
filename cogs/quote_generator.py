@@ -28,6 +28,7 @@ class QuoteGenerator(Cog):
     @cooldown(1, 10, type=BucketType.user)
     async def quote(self, ctx, *user_input):
         """
+        (still testing, please report any errors)
         Generates a dramatically themed quote using a message url or your own message. Copy the url from a message you want quoted
         and paste next to the command. Images and custom images won't show up and there's a limit to 150 words.
 
