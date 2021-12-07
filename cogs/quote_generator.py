@@ -10,14 +10,13 @@ from discord.ext.commands import Cog, command, cooldown, BucketType
 from discord import Embed, File
 import emoji
 
-
 from os import remove
 
 from cogs.utils.quote_generator_data.image_creator import create_image
 
 
 def get_img_url(user_id: int, url_identifier: str):
-    if url_identifier is None: # user doesn't have a profile picture
+    if url_identifier is None:  # user doesn't have a profile picture
         return "https://i.imgur.com/z9tOsSz.png"
     return f"https://cdn.discordapp.com/avatars/{user_id}/{url_identifier}.png?size=256"
 
@@ -32,10 +31,15 @@ def give_emoji_free_text(text):
 
 async def get_html_css_info(channel, message_id, server):
     message = await channel.fetch_message(message_id)
+    user = message.author
     user_id = message.author.id
-    user = await server.fetch_member(user_id)
     message_content = remove_emoji_from_message(message.content)
-    user_nick = user.display_name if user.nick is None else give_emoji_free_text(user.nick)
+
+    if server.get_member(user_id) is None:
+        user_nick = user.name
+    else:
+        user_nick = user.display_name if user.nick is None else give_emoji_free_text(user.nick)
+
     user_avatar = get_img_url(user_id, user.avatar)
 
     return user_nick, user_avatar, message_content
