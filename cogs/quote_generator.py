@@ -53,7 +53,7 @@ class QuoteGenerator(Cog):
     def __init__(self, bot) -> None:
         self.bot = bot
 
-    @command()
+    @command(aliases=['q', ])
     @cooldown(1, 10, type=BucketType.user)
     async def quote(self, ctx, *user_input):
         """
