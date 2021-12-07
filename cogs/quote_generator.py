@@ -106,12 +106,12 @@ class QuoteGenerator(Cog):
             if channel is None:
                 return await ctx.send("I can't access this channel")
 
-            user_nick, user_avatar, message_content = get_img_info(channel, msg_id, server)
+            user_nick, user_avatar, message_content = await get_img_info(channel, msg_id, server)
 
         else:
             message_content = remove_emoji_from_message(' '.join(user_input))
             user_nick = ctx.author.display_name if ctx.author.nick is None else give_emoji_free_text(ctx.author.nick)
-            user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
+            user_avatar = await get_img_url(ctx.author.id, ctx.author.avatar)
 
         if len(message_content) > 150:
             return ctx.send("Beep boop, I can't create an image with that much text. I'm limited at 150 characters")
