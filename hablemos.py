@@ -32,12 +32,9 @@ class Hablemos(Bot):
         await self.change_presence(activity=Game(f'{PREFIX}topic for a conversation starter'))
 
     async def on_command_error(self, ctx, error):
-        if isinstance(error, CommandOnCooldown):
-            if ctx.message.content[-1] == "$":
-                pass
-            else:
-                await self.error_channel.send(
-                    f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+        if isinstance(error, CommandNotFound) and ctx.message.content[-1] != "$":
+            await self.error_channel.send(
+                f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
         if isinstance(error, CommandOnCooldown):
             await ctx.send(f"This command is on cooldown.  Try again in {round(error.retry_after)} seconds.")
