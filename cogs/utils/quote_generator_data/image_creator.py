@@ -20,7 +20,7 @@ def create_image(user_name, user_avatar, message_content):
         150: 'small',
     }
 
-    for fs in font_sizes.keys():
+    for fs in font_sizes:
         if len(message_content) <= fs:
             font_size = font_sizes[fs]
             break
