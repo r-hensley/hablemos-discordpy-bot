@@ -46,6 +46,8 @@ def create_image(user_name, user_avatar, message_content):
             filter: grayscale(100%);
             border: 2px solid white;
             border-right: 0;
+            width: 258px;
+            height: 256px;
             }}
 
 
