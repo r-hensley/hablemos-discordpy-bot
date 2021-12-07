@@ -30,15 +30,7 @@ def give_emoji_free_text(text):
     return emoji.get_emoji_regexp().sub(r'', text)[:28]
 
 
-def create_image_embed(url):
-    file = File(url, filename="picture.jpg")
-    embed = Embed()
-    embed.set_image(url="attachment://picture.jpg")
-
-    return file, embed
-
-
-async def get_img_info(channel, message_id, server):
+async def get_html_css_info(channel, message_id, server):
     message = await channel.fetch_message(message_id)
     user_id = message.author.id
     user = await server.fetch_member(user_id)
@@ -91,7 +83,7 @@ class QuoteGenerator(Cog):
             server = self.bot.get_guild(guild_id)
             channel = server.get_channel(channel_id)
 
-            user_nick, user_avatar, message_content = await get_img_info(channel, message_id, server)
+            user_nick, user_avatar, message_content = await get_html_css_info(channel, message_id, server)
 
         elif len(user_input) == 1 and user_input[0].startswith("https://discord.com/channels/"):
             link = user_input[0].split('/')
@@ -106,12 +98,12 @@ class QuoteGenerator(Cog):
             if channel is None:
                 return await ctx.send("I can't access this channel")
 
-            user_nick, user_avatar, message_content = await get_img_info(channel, msg_id, server)
+            user_nick, user_avatar, message_content = await get_html_css_info(channel, msg_id, server)
 
         else:
             message_content = remove_emoji_from_message(' '.join(user_input))
             user_nick = ctx.author.display_name if ctx.author.nick is None else give_emoji_free_text(ctx.author.nick)
-            user_avatar = await get_img_url(ctx.author.id, ctx.author.avatar)
+            user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
 
         if len(message_content) > 150:
             return ctx.send("Beep boop, I can't create an image with that much text. I'm limited at 150 characters")
