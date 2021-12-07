@@ -102,7 +102,7 @@ class QuoteGenerator(Cog):
             user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
 
         if len(message_content) > 150:
-            return await ctx.send("Beep boop, I can't create an image with that much text. I'm limited at 150 characters")
+            return await ctx.send("Beep boop, I can't create an image. I'm limited to 150 characters")
         generated_url = create_image(user_nick, user_avatar, message_content)
 
         await ctx.send(file=File(generated_url))
