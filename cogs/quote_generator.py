@@ -58,15 +58,11 @@ class QuoteGenerator(Cog):
         (creates a quote using a specific message)
         `$quote ¡Viva México, cabrones!`
         (creates a quote using your own message)
-
-        NOTE: The message id doesn't work, only the full link.
-
-        I'll make it a slash command eventually, should be easier to use
         """
 
         is_message_reply = ctx.message.reference is not None
         if len(user_input) == 0 and not is_message_reply:
-            return await ctx.send("Please see type `$help quote` for info on correct usage")
+            return await ctx.send("Please type `$help quote` for info on correct usage")
 
         if len(user_input) == 1 and len(user_input[0]) == 18 and user_input[0].isdigit() and not is_message_reply:
             return await ctx.send(
@@ -106,7 +102,7 @@ class QuoteGenerator(Cog):
             user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
 
         if len(message_content) > 150:
-            return ctx.send("Beep boop, I can't create an image with that much text. I'm limited at 150 characters")
+            return await ctx.send("Beep boop, I can't create an image with that much text. I'm limited at 150 characters")
         generated_url = create_image(user_nick, user_avatar, message_content)
 
         await ctx.send(file=File(generated_url))

@@ -7,7 +7,7 @@ dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 def create_image(user_name, user_avatar, message_content):
     options = {
         'format': 'png',
-        'crop-w': '637',
+        'crop-w': '638',
         'encoding': "UTF-8",
         'enable-local-file-access': None
     }
