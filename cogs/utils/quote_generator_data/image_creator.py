@@ -7,7 +7,7 @@ dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 def create_image(user_name, user_avatar, message_content):
     options = {
         'format': 'png',
-        'crop-w': '638',
+        'crop-w': '639',
         'encoding': "UTF-8",
         'enable-local-file-access': None
     }
@@ -28,18 +28,31 @@ def create_image(user_name, user_avatar, message_content):
     html = f'''
             <html>
             <head>
-            <style>
-            @font-face {{
-        font-family: 'Baline Script';
-        src: url('{dir_path}/quote_generator_data/fonts/BalineScript.eot');
-        src: url('{dir_path}/quote_generator_data/fonts/BalineScript.eot?#iefix') format('embedded-opentype'),
-             url('{dir_path}/quote_generator_data/fonts/BalineScript.woff') format('woff'),
-             url('{dir_path}/quote_generator_data/fonts/BalineScript.ttf') format('truetype'),
-             url('{dir_path}/quote_generator_data/fonts/BalineScript.svg#BalineScript') format('svg');
+            <style>   
+        @font-face {{
+        font-family: 'Satisfy Pro';
+        src: url('{dir_path}/quote_generator_data/fonts/SatisfyPro.eot');
+        src: url('{dir_path}/quote_generator_data/fonts/SatisfyPro.eot?#iefix') format('embedded-opentype'),
+             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.woff') format('woff'),
+             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.ttf') format('truetype'),
+             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.svg#SatisfyPro') format('svg');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
     }}
+    
+    @font-face {{
+        font-family: 'Helvetica Neue';
+        src: url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.eot');
+        src: url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.eot?#iefix') format('embedded-opentype'),
+             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.woff') format('woff'),
+             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.ttf') format('truetype'),
+             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.svg#HelveticaNeue-Roman') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }}
+    
         .myImage {{
             float: left;
             -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
@@ -66,16 +79,15 @@ def create_image(user_name, user_avatar, message_content):
 
             .main-quote {{
             color: white;
-            font-family: sans-serif;
+            font-family: Helvetica Neue;
             font-size: {font_size};
-            font-style: italic;
             padding: 10% 5% 5%;
             }}
 
             .author {{
                 color: white;
                 font-size: 135%;
-                font-family: Baline Script;
+                font-family: Satisfy Pro;
             }}
 
             span:after,
@@ -105,18 +117,9 @@ def create_image(user_name, user_avatar, message_content):
     return img_path
 
 # for testing
-# name = give_emoji_free_text('Loxisito (^ω^)ﾉ♪')
-# create_image(name,
-#              'https://cdn.discordapp.com/avatars/196705465885786112/3e4665bf01e91d4569380c1ae4c811b1.png?size=256',
-#              'Párale a tu pedo')
+# create_image('Priúñaku',
+#              'https://cdn.discordapp.com/avatars/463728003038576640/fc146df4c3096017d93f26511a6d1798.png?size=256',
+#              'These hées ñare dusty')
 
 
-# font-family: 'Alex Brush';
-#         src: url('{dir_path}/quote_generator_data/fonts/AlexBrush-Regular.eot');
-#         src: url('{dir_path}/quote_generator_data/fonts/AlexBrush-Regular.eot?#iefix') format('embedded-opentype'),
-#              url('{dir_path}/quote_generator_data/fonts/AlexBrush-Regular.woff') format('woff'),
-#              url('{dir_path}/quote_generator_data/fonts/AlexBrush-Regular.ttf') format('truetype'),
-#              url('{dir_path}/quote_generator_data/fonts/AlexBrush-Regular.svg#AlexBrush-Regular') format('svg');
-#         font-weight: normal;
-#         font-style: normal;
-#         font-display: swap;
+
