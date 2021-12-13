@@ -1,5 +1,5 @@
 from os import getenv
-from discord import Game, Embed, Color
+from discord import Game, Intents
 from discord.ext.commands import Bot, CommandNotFound, CommandOnCooldown
 from dotenv import load_dotenv
 from cogs.general import PREFIX_
@@ -15,8 +15,12 @@ class Hablemos(Bot):
     online_channel = ""
 
     def __init__(self):
-        super().__init__(description="Bot by Jaleel#6408", command_prefix=PREFIX, owner_id=216848576549093376,
-                         help_command=None)
+        super().__init__(description="Bot by Jaleel#6408",
+                         command_prefix=PREFIX,
+                         owner_id=216848576549093376,
+                         help_command=None,
+                         intents=Intents(members=True, messages=True, guilds=True)
+                         )
 
         for extension in cog_extensions:
             self.load_extension(extension)
