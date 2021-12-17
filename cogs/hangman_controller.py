@@ -1,6 +1,8 @@
 from discord.ext import commands
 from cogs.utils.hangman_data.hangman import Hangman
 
+categories = ['animales', 'profesiones']
+
 
 class HangmanController(commands.Cog):
     def __init__(self, bot):
@@ -9,26 +11,36 @@ class HangmanController(commands.Cog):
         self.channels = []
 
     @commands.command(aliases=['hm', 'hang', ])
-    async def hangman(self, ctx):
+    async def hangman(self, ctx, *category):
         """
         (still experimental, please let me know of any errors)
-        Hangman but in Spanish. I currently only have `animales` as a category.
-        Some or most of the vocabulary might be very Spanish (from :flag_es:).
-        Ping or dm <@216848576549093376> if you have any suggestions.
+        Categories:
+        `animales` (199)
+        `profesiones` (141)
 
-        Type `$hangman` to start a new game
+        Type `$hangman <category>` to start a new game, eg `hangman profesiones` `hangman animales`
+        No input defaults to `animales`
         Type `quit` to exit the game, only the person who started can quit the game.
         The game will automatically exit after 45 seconds if there's no input
         """
-        channel = ctx.channel.id
-        await self.new_game(ctx, channel)
+        cat = ''
+        if len(category) >= 1 and category[0] not in categories:
+            return await ctx.send("""
+            Category not found, only `animales` and `profesiones` are available. 
+    See `$help hangman` for correct usage
+            """)
 
-    async def new_game(self, context, channel):
+        cat = 'animales' if len(category) == 0 else category[0]
+
+        channel = ctx.channel.id
+        await self.new_game(ctx, channel, cat)
+
+    async def new_game(self, context, channel, cat):
         if self.game_in_progress and channel in self.channels:
             return await context.send("There's already a game in progress in this channel")
         self.channels.append(channel)
         self.game_in_progress = True
-        new_game = Hangman(self.bot)
+        new_game = Hangman(self.bot, cat)
         await new_game.hangman(context)
         self.channels.remove(channel)
 
