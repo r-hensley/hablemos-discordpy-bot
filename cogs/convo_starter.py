@@ -5,8 +5,7 @@ from discord.ext import commands
 from discord import Embed
 
 # Embed Message
-DEEPL_URL = "https://www.deepl.com/translator"
-ERROR_MESSAGE = "The proper format is `$topic <topic>` eg. `$topic movies`. Please see " \
+ERROR_MESSAGE = "The proper format is `$topic <topic>` eg. `$topic 2`. Please see " \
                 "`$help topic` for more info"
 NOT_FOUND = "Topic not found! Please type ``$lst`` to see a list of topics"
 
@@ -25,7 +24,6 @@ def embed_question(question_1a, question_1b):
     embed.clear_fields()
     embed.title = question_1a
     embed.description = f"**{question_1b}**"
-    # embed.add_field(name="\u200b", value=footer, inline=False)
     return embed
 
 
