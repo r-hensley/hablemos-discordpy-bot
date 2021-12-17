@@ -118,6 +118,7 @@ class Hangman(Cog):
         await ctx.send(embed=emb_init)
 
         while True:
+            user_guess = ""  # flush previous input
             try:
                 user_guess = await self.bot.wait_for('message', check=check, timeout=45)
             except asyncio.TimeoutError:
