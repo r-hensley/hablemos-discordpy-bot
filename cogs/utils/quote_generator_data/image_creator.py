@@ -17,7 +17,7 @@ def create_image(user_name, user_avatar, message_content):
     font_sizes = {
         60: 'x-large',
         100: 'large',
-        150: 'small',
+        150: 'medium',
     }
 
     for fs in font_sizes:
