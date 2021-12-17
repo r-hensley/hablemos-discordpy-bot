@@ -39,7 +39,7 @@ Some key features:
 
 example:
 
-![quote example](https://cdn.discordapp.com/attachments/808679873837137940/917384356073443328/unknown.png)
+![quote example](https://cdn.discordapp.com/attachments/808679873837137940/920026460234862643/unknown.png)
 <br>
 # To-Do
 - General
