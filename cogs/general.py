@@ -1,9 +1,10 @@
-from discord.ext import commands
+from discord.ext.commands import command, Cog
 from discord import Embed, Color, Forbidden
 
 SOURCE_URL = 'https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing'
 REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
+PYC = 'https://github.com/Pycord-Development/pycord'
 INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
 PREFIX_ = "$" # the real one, have to make it configurable some day
 # PREFIX_ = "-" # for testing
@@ -21,11 +22,11 @@ async def safe_send(destination, content=None, *, embed=None):
               f"\nGuild: {destination.guild.id}")
 
 
-class General(commands.Cog):
+class General(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @command()
     async def help(self, ctx, arg=''):
         if arg:
             requested = self.bot.get_command(arg)
@@ -57,7 +58,7 @@ class General(commands.Cog):
             """
             await safe_send(ctx, embed=green_embed(to_send))
 
-    @commands.command(aliases=['list', ])
+    @command(aliases=['list', ])
     async def lst(self, ctx):
         """
         Lists available categories
@@ -76,14 +77,14 @@ class General(commands.Cog):
         """
         await safe_send(ctx, embed=green_embed(categories))
 
-    @commands.command()
+    @command()
     async def info(self, ctx):
         """
         Information about the bot
         """
 
         text = f"""
-        The bot was coded in Python using the [discord.py]({DPY}) API.
+        The bot was coded in Python using the [Pycord]({PYC}) wrapper for  [discord.py]({DPY}) framework.
         
         To report an error or make a suggestion please message <@216848576549093376>
         [Github Repository]({REPO})
@@ -91,7 +92,7 @@ class General(commands.Cog):
 
         await safe_send(ctx, embed=green_embed(text))
 
-    @commands.command()
+    @command()
     async def invite(self, ctx):
         """
         Bot invitation help
@@ -104,7 +105,7 @@ class General(commands.Cog):
 
         await safe_send(ctx, embed=green_embed(text))
 
-    @commands.command()
+    @command()
     async def ping(self, ctx):
         """
         Ping the bot to see if there are latency issues
