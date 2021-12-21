@@ -18,7 +18,7 @@ from cogs.utils.quote_generator_data.image_creator import create_image
 def get_img_url(url_identifier: str):
     if url_identifier is None:  # user doesn't have a profile picture
         return "https://i.imgur.com/z9tOsSz.png"
-    return url_identifier
+    return url_identifier[:-4]+'256'
 
 
 def remove_emoji_from_message(message):
