@@ -1,5 +1,6 @@
 from discord.ext import commands
 from cogs.utils.hangman_data.hangman import Hangman
+from cogs.utils.hangman_data.hangman_help import get_word
 
 categories = ['animales', 'profesiones']
 
@@ -18,7 +19,7 @@ class HangmanController(commands.Cog):
         `animales` (199)
         `profesiones` (141)
 
-        Type `$hangman <category>` to start a new game, eg `hangman profesiones` `hangman animales`
+        Type `$hangman <category>` to start a new game, eg `hangman profesiones`, `hangman animales`
         No input defaults to `animales`
         Type `quit` to exit the game, only the person who started can quit the game.
         The game will automatically exit after 45 seconds if there's no input
@@ -27,22 +28,26 @@ class HangmanController(commands.Cog):
         if len(category) >= 1 and category[0] not in categories:
             return await ctx.send("""
             Category not found, only `animales` and `profesiones` are available. 
-    See `$help hangman` for correct usage
+            See `$help hangman` for correct usage
             """)
 
         cat = 'animales' if len(category) == 0 else category[0]
+        words = get_word(cat)
 
         channel = ctx.channel.id
-        await self.new_game(ctx, channel, cat)
+        await self.new_game(ctx, channel, cat, words)
 
-    async def new_game(self, context, channel, cat):
+    async def new_game(self, context, channel, cat, words):
         if self.game_in_progress and channel in self.channels:
             return await context.send("There's already a game in progress in this channel")
         self.channels.append(channel)
         self.game_in_progress = True
-        new_game = Hangman(self.bot, cat)
-        await new_game.hangman(context)
+        new_game = Hangman(self.bot, words, cat)
+        await new_game.game_loop(context)
         self.channels.remove(channel)
+
+    async def cog_command_error(self, ctx, error):
+        print('An error occurred: {}'.format(str(error)))
 
 
 def setup(bot):

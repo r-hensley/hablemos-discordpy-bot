@@ -1,17 +1,16 @@
 import asyncio
-from random import choice
-import time
 from re import sub
 
 from discord.ext.commands import Cog
-from discord import Embed, File
 
-from cogs.convo_starter import colors
 from cogs.utils.hangman_data.hangman_help import (get_unaccented_letter,
                                                   get_unaccented_word,
-                                                  get_word as gw,
                                                   get_hidden_word,
-                                                  get_random_image as gi)
+                                                  get_hangman_string,
+                                                  embed_quote,
+                                                  create_final_embed,
+                                                  start_game
+                                                  )
 
 # strings for the embeds
 DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"
@@ -19,9 +18,6 @@ ALREADY_GUESSED = "{} La `{}` ya se ha adivinado . Puedes volver a adivinar en 2
 CORRECT_GUESS = "{} ha adivinado la letra `{}`"
 STARTED = "Nueva partida - **{}**"
 ON_GOING = "Ahorcado (Hangman) - **{}**"
-ENDED = "Ahorcado (Hangman) - {} - Partida terminada"
-WINNER = "¡Ganaste, **{}**! La palabra correcta era **{}** ({})"
-LOSER = "Perdiste jeje. La palabra correcta era **{}** ({})"
 TIME_OUT = "La sesión ha expirado"
 SPA_ALPHABET = "aábcdeéfghiíjklmnñoópqrstuúüvwxyz"
 VOWELS = {'a': ['a', 'á'],
@@ -30,161 +26,144 @@ VOWELS = {'a': ['a', 'á'],
           'o': ['o', 'ó'],
           'u': ['u', 'ú', 'ü'], }
 MAX_ERRORS = 6
-TIME_LIMIT = 2
-
-
-def embed_quote(header, state):
-    embed = Embed(color=choice(colors))
-    embed.title = header
-    embed.description = state
-    return embed
-
-
-def final_embed(winner, words, cat, result=True):
-    animal_image = gi(words[1].replace(' ', ''), cat)
-    file = File(animal_image[0], filename=animal_image[1])
-    embed = Embed(color=choice(colors))
-    embed.title = ENDED.format(cat)
-    embed.description = WINNER.format(winner, words[0], words[1]) if result else LOSER.format(words[0],
-                                                                                              words[1])
-    embed.set_image(url=f"attachment://{animal_image[1]}")
-    return file, embed
-
-
-# new hangman
-def start_game(word):
-    return f"""
-    `{' '.join(word)}`
-    . ┌─────┐
-    .┃...............┋
-    .┃...............┋
-    .┃
-    .┃
-    .┃ 
-    /-\\
-    """
 
 
 class Hangman(Cog):
-    def __init__(self, bot, category):
+    def __init__(self, bot, words, category):
         self.bot = bot
-        self.errors = 0
         self.category = category
+        self.words = words
+        self.original_word = sub('/(.*)', '', words[0].lower())
+        self.unaccented_word = get_unaccented_word(self.original_word)
+        self.hidden_word = get_hidden_word(self.original_word)
+        self.original_word_list = list(self.original_word)
+        self.unaccented_word_list = list(self.unaccented_word)
+        self.hidden_word_list = list(self.hidden_word)
+        self.errors = 0
+        self.indices = {letter: [] for letter in self.unaccented_word}
+        self.letters_found = set()
+        self.players = {}
+        self.correctly_guessed = None
+        self.embed_quote = embed_quote
+        self.embedded_message = ""
 
-    def get_hangman(self, message="", correctly_guest="", wrongly_guessed=""):
-        back_slash = "\\"  # can't use back_slash in f-string
-        return f"""
-        {message}
-        `{' '.join(correctly_guest)}`
-        . ┌─────┐
-        .┃...............┋
-        .┃...............┋
-        .┃{".............:cry:" if self.errors > 0 else ""}
-        .┃{"............./" if self.errors > 1 else ""} {"|" if self.errors > 2 else ""} {back_slash if self.errors > 3 else ""} 
-        .┃{"............./" if self.errors > 4 else ""} {back_slash if self.errors > 5 else ""}
-        /-\\    
-        {' '.join(wrongly_guessed)}
-        """
+    async def game_loop(self, ctx):
+        print(f"New game started - {self.category} - {self.words}")
+        self.create_dict_indices()
 
-    def get_embed(self, letter, hidden_word, state_str, author, previously_guessed):
-        """
-        Generates embed with hangman drawing, hidden word and guessed letters
-        """
-        if letter not in VOWELS:
-            return embed_quote(ON_GOING.format(self.category), self.get_hangman(state_str.format(author, letter),
-                                                                                hidden_word,
-                                                                                previously_guessed))
-        vowel = '/'.join(VOWELS[letter])
-        return embed_quote(ON_GOING.format(self.category), self.get_hangman(state_str.format(author, vowel),
-                                                                            hidden_word,
-                                                                            previously_guessed))
+        await ctx.send(embed=self.embed_quote(STARTED.format(self.category),
+                                              start_game(self.hidden_word_list)))
 
-    async def hangman(self, ctx):
-        print("New game started")
+        while self.game_in_progress():
+            user_guess: tuple = await self.get_user_guess(ctx)
 
-        def check(m):
-            return m.channel == ctx.channel
-            # return m.author == ctx.author and m.channel == ctx.channel
-
-        new_word = gw(self.category)  # [spanish, english]
-        spa_word = sub('\/(.*)', '', new_word[0].lower())  # remove gendered part
-        word_list = list(spa_word)
-        word_without_accents = get_unaccented_word(spa_word)
-        hidden_word = get_hidden_word(word_without_accents)
-        already_guessed = list()
-        players = {}  # user: time
-
-        emb_init = embed_quote(STARTED.format(self.category), start_game(hidden_word))
-        await ctx.send(embed=emb_init)
-
-        while True:
-            user_guess = ""  # flush previous input
-            try:
-                user_guess = await self.bot.wait_for('message', check=check, timeout=45)
-            except asyncio.TimeoutError:
-                await ctx.send(TIME_OUT)
-                return
-
-            user_id = user_guess.author.id
-            user_name = user_guess.author
-            # add player details to dict and check if user is not in cooldown
-            if user_id not in players or time.time() - players[user_id] >= TIME_LIMIT:
-                # Add player to players dictionary and check if cooled down
-                players[user_id] = time.time()
-                user_guess = user_guess.content.lower()
-            else:
+            if not user_guess[0]:  # if it returns False the input timed out
+                break
+            elif not self.is_input_valid(user_guess[1]):
                 continue
 
-            if len(user_guess) == 1 and user_guess in SPA_ALPHABET:
-                str_guess = get_unaccented_letter(user_guess)
+            player_id, player_name, player_input = self.get_input_info(user_guess[1])
 
-                if str_guess in already_guessed:
-                    emb = self.get_embed(str_guess, hidden_word, ALREADY_GUESSED, user_name, already_guessed)
-                    await ctx.send(embed=emb)
+            if await self.did_user_quit(player_input, ctx):
+                break
 
-                elif str_guess in word_without_accents:
-                    for i, c in enumerate(word_without_accents):
-                        if str_guess == c:
-                            hidden_word[i] = spa_word[i]
+            if len(player_input) == 1:
+                self.update_single_letter(get_unaccented_letter(player_input))
+            else:
+                self.hidden_word_list = self.original_word_list
 
-                    if hidden_word == word_list:
-                        # Final guess is the last hidden letter
-                        end_embed = final_embed(user_name, new_word, self.category)
-                        await ctx.send(file=end_embed[0], embed=end_embed[1])
-                        return
+            await self.send_embed(ctx, player_name, player_input)
 
-                    # Guessed a letter correctly
-                    players[user_id] = time.time() - TIME_LIMIT - 1  # no cooldown, guessed correctly
-                    # I hate ternary operators
-                    already_guessed.extend(
-                        VOWELS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
+    def game_in_progress(self):
+        return (
+                self.hidden_word_list
+                not in (self.unaccented_word_list, self.original_word_list)
+                and not self.max_errors_reached()
+        )
 
-                    emb = self.get_embed(str_guess, hidden_word, CORRECT_GUESS, user_name, already_guessed)
-                    await ctx.send(embed=emb)
+    def create_dict_indices(self):
+        for idx in range(len(self.unaccented_word)):
+            self.indices[self.unaccented_word[idx]].append(idx)
 
-                else:
-                    already_guessed.extend(
-                        VOWELS[str_guess]) if str_guess in VOWELS else already_guessed.append(str_guess)
+    def is_input_valid(self, user_input):
+        message_content = user_input.content.lower()
+        return message_content in SPA_ALPHABET or message_content in ('quit', self.original_word, self.unaccented_word)
 
-                    self.errors += 1
-                    emb = self.get_embed(str_guess, hidden_word, DOES_NOT_EXIST, user_name, already_guessed)
+    async def get_user_guess(self, context):
+        try:
+            user_input = ""
+            user_input = await self.bot.wait_for('message',
+                                                 check=lambda message: message.channel == context.channel,
+                                                 timeout=45)
+        except asyncio.TimeoutError:
+            await context.send(TIME_OUT)
+            return False, ""
 
-                    if self.errors > MAX_ERRORS:
-                        end_embed = final_embed(user_name, new_word, self.category, False)
-                        await ctx.send(file=end_embed[0], embed=end_embed[1])
-                        return
+        return True, user_input
 
-                    await ctx.send(embed=emb)
+    @staticmethod
+    def get_input_info(message):
+        user_id = message.author.id
+        user_name = message.author
+        user_guess = message.content.lower()
 
-            elif user_guess in (word_without_accents, spa_word):
-                end_embed = final_embed(user_name, new_word, self.category)
-                await ctx.send(file=end_embed[0], embed=end_embed[1])
-                return
+        return user_id, user_name, user_guess
 
-            if user_guess == "quit":
-                if ctx.author.id == user_id:
-                    await ctx.send("Partida terminada")
-                    return
-                await ctx.send("Solo quién haya iniciado la partida la puede terminar.\n"
-                               "De todos modos, la partida se va a terminar en 45 segundos si no se recibe ningún "
-                               "input")
+    @staticmethod
+    async def did_user_quit(user_guess, context):
+        if user_guess == 'quit':
+            await context.send('Partida terminada')
+            return True
+
+    def update_single_letter(self, player_input):
+        input_found = player_input in self.indices
+        input_unique = player_input not in self.letters_found
+
+        if input_found and input_unique:
+            self.replace_hidden_character(self.indices[player_input])
+            self.extend_found_set(player_input)
+            self.embedded_message = CORRECT_GUESS
+        elif not input_unique:
+            self.errors += 1
+            self.embedded_message = ALREADY_GUESSED
+        else:
+            self.extend_found_set(player_input)
+            self.errors += 1
+            self.embedded_message = DOES_NOT_EXIST
+
+    def replace_hidden_character(self, indices):
+        for i in indices:
+            self.hidden_word_list[i] = self.original_word_list[i]
+
+    async def send_embed(self, context, name_, input_):
+        if self.max_errors_reached():
+            await self.send_final_embed(context, name_, False)
+        elif not self.word_found():
+            await context.send(embed=self.embed_quote(
+                ON_GOING.format(self.category),
+                get_hangman_string(
+                    self.errors,
+                    self.embedded_message.format(
+                        name_,
+                        '/'.join(VOWELS[input_]) if input_ in VOWELS else input_,
+                    ),
+                    self.hidden_word_list,
+                    self.letters_found
+
+                ),
+            ))
+        else:
+            await self.send_final_embed(context, name_, True)
+
+    def extend_found_set(self, letter):
+        self.letters_found.update(VOWELS[letter] if letter in VOWELS else letter)
+
+    async def send_final_embed(self, context, name_, result):
+        end_embed = create_final_embed(name_, self.words, self.category, result)
+        await context.send(file=end_embed[0], embed=end_embed[1])
+
+    def word_found(self):
+        return self.original_word_list == self.hidden_word_list
+
+    def max_errors_reached(self):
+        return self.errors == MAX_ERRORS
