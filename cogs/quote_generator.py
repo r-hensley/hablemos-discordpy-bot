@@ -15,10 +15,10 @@ from os import remove
 from cogs.utils.quote_generator_data.image_creator import create_image
 
 
-def get_img_url(user_id: int, url_identifier: str):
+def get_img_url(url_identifier: str):
     if url_identifier is None:  # user doesn't have a profile picture
         return "https://i.imgur.com/z9tOsSz.png"
-    return f"https://cdn.discordapp.com/avatars/{user_id}/{url_identifier}.png?size=256"
+    return url_identifier
 
 
 def remove_emoji_from_message(message):
@@ -40,7 +40,7 @@ async def get_html_css_info(channel, message_id, server):
     else:
         user_nick = user.display_name if user.nick is None else give_emoji_free_text(user.nick)
 
-    user_avatar = get_img_url(user_id, user.avatar)
+    user_avatar = get_img_url(user.avatar)
 
     return user_nick, user_avatar, message_content
 
@@ -103,7 +103,7 @@ class QuoteGenerator(Cog):
         else:
             message_content = remove_emoji_from_message(' '.join(user_input))
             user_nick = ctx.author.display_name if ctx.author.nick is None else give_emoji_free_text(ctx.author.nick)
-            user_avatar = get_img_url(ctx.author.id, ctx.author.avatar)
+            user_avatar = get_img_url(ctx.author.avatar)
 
         if len(message_content) > 150:
             return await ctx.send("Beep boop, I can't create an image. I'm limited to 150 characters")
