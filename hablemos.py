@@ -10,8 +10,10 @@ PREFIX = PREFIX_
 cog_extensions = ['cogs.convo_starter',
                   'cogs.general',
                   'cogs.hangman_controller',
-                  'cogs.quote_generator',
-                  'cogs.pages']
+                  'cogs.quote_generator', ]
+
+
+# 'cogs.pages']
 
 
 class Hablemos(Bot):
