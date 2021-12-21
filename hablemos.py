@@ -7,7 +7,11 @@ from cogs.general import PREFIX_
 load_dotenv('.env')
 
 PREFIX = PREFIX_
-cog_extensions = ['cogs.convo_starter', 'cogs.general', 'cogs.hangman_controller', 'cogs.quote_generator']
+cog_extensions = ['cogs.convo_starter',
+                  'cogs.general',
+                  'cogs.hangman_controller',
+                  'cogs.quote_generator',
+                  'cogs.pages']
 
 
 class Hablemos(Bot):
@@ -36,13 +40,14 @@ class Hablemos(Bot):
         await self.change_presence(activity=Game(f'{PREFIX}topic for a conversation starter'))
 
     async def on_command_error(self, ctx, error):
-        if isinstance(error, CommandNotFound) and ctx.message.content[-1] != "$":
+        if ctx.message.content[1].isdigit() or ctx.message.content[-1] == PREFIX:  # ignores dollar amounts and math bot
+            return
+        if isinstance(error, CommandNotFound):
             await self.error_channel.send(
                 f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
         if isinstance(error, CommandOnCooldown):
             await ctx.send(f"This command is on cooldown.  Try again in {round(error.retry_after)} seconds.")
-            return
 
     async def on_command_completion(self, ctx):
         await self.error_channel.send(
