@@ -90,13 +90,16 @@ class Hangman(Cog):
         return message_content in SPA_ALPHABET or message_content in ('quit', self.original_word, self.unaccented_word)
 
     async def get_user_guess(self, context):
-        def valid_guess(message): return message.channel == context.channel and message.author.id not in (
-            808377026330492941,
-            855852208129572914)
+        def valid_guess(message):
+            return message.channel == context.channel and message.author.id not in (
+                808377026330492941,
+                855852208129572914)
+
         try:
             user_input = ""
             user_input = await self.bot.wait_for('message',
-                                                 check=valid_guess,
+                                                 check=lambda message: message.channel == context.channel
+                                                                       and not message.author.bot,
                                                  timeout=45)
         except asyncio.TimeoutError:
             await context.send(TIME_OUT)
