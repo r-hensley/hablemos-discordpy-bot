@@ -7,7 +7,7 @@ DPY = 'https://discordpy.readthedocs.io/en/latest/'
 PYC = 'https://github.com/Pycord-Development/pycord'
 INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
 PREFIX_ = "$" # the real one, have to make it configurable some day
-# PREFIX_ = "-" # for testing
+# PREFIX_ = "-"  # for testing
 
 
 def green_embed(text):
@@ -95,7 +95,7 @@ class General(Cog):
     @command()
     async def invite(self, ctx):
         """
-        Bot invitation help
+        Bot invitation link
         """
 
         text = f"""
