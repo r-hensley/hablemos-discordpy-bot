@@ -7,7 +7,7 @@ from re import sub
 from cogs.utils.quote_generator_data.image_creator import dir_path
 
 from discord.ext.commands import Cog, command, cooldown, BucketType
-from discord import Embed, File
+from discord import File
 import emoji
 
 from os import remove
@@ -25,7 +25,7 @@ def remove_emoji_from_message(message):
     return sub("<:[A-Za-z0-9_]+:([0-9]+)>", '', message).replace("  ", " ")
 
 
-def give_emoji_free_text(text):
+def give_emoji_free_text(text: str) -> str:
     return emoji.get_emoji_regexp().sub(r'', text)[:28]
 
 
@@ -54,13 +54,13 @@ class QuoteGenerator(Cog):
     async def quote(self, ctx, *user_input):
         """
         (still testing, please report any errors or suggestions)
-        Generates a dramatically themed quote using a message url, your own message or replying to a message.
+        Generates a dramatically themed quote using a **message url**, **your own message** or **replying to a message**.
         Images and custom emojis won't show up and there's a limit to 150 words.
 
         Example usage:
         `$quote https://discord.com/channels/731403448502845501/808679873837137940/916938526329798718`
         (creates a quote using a specific message)
-        `$quote ¡Viva México, cabrones!`
+        `$quote todo es bronca y dolor`
         (creates a quote using your own message)
         """
 
