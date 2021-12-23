@@ -15,8 +15,8 @@ def create_image(user_name, user_avatar, message_content):
     font_size = ""
 
     font_sizes = {
-        60: 'x-large',
-        100: 'large',
+        75: 'x-large',
+        110: 'large',
         150: 'medium',
     }
 
