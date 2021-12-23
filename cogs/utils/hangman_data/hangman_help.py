@@ -90,7 +90,12 @@ def embed_quote(header, state):
 
 
 def create_final_embed(winner, words, category, result):
-    category_image = get_image(words[1].replace(' ', ''), category)
+    # TODO:
+    # put image links in a database/csv file
+    if category == 'ciudades':
+        category_image = get_image(words[0], category)
+    else:
+        category_image = get_image(words[1].replace(' ', ''), category)
     file = File(category_image[0], filename=category_image[1])
     embed = Embed(color=choice(colors))
     embed.title = ENDED.format(category)

@@ -59,8 +59,8 @@ class Hangman(Cog):
 
             if not user_guess[0]:  # if it returns False the input timed out
                 break
-            elif not self.is_input_valid(user_guess[1]):
-                continue
+            # elif not self.is_input_valid(user_guess[1]):
+            #     continue
 
             player_id, player_name, player_input = self.get_input_info(user_guess[1])
 
@@ -85,21 +85,20 @@ class Hangman(Cog):
         for idx in range(len(self.unaccented_word)):
             self.indices[self.unaccented_word[idx]].append(idx)
 
-    def is_input_valid(self, user_input):
-        message_content = user_input.content.lower()
-        return message_content in SPA_ALPHABET or message_content in ('quit', self.original_word, self.unaccented_word)
-
     async def get_user_guess(self, context):
-        def valid_guess(message):
-            return message.channel == context.channel and message.author.id not in (
-                808377026330492941,
-                855852208129572914)
+        def is_input_valid(user_message):
+            message_content = user_message.content.strip().lower()
+            message_in_command_channel = user_message.channel == context.channel
+            message_is_valid = message_content in SPA_ALPHABET or message_content in ('quit',
+                                                                                      self.original_word,
+                                                                                      self.unaccented_word)
+            user_is_not_bot = not user_message.author.bot
+            return message_in_command_channel and message_is_valid and user_is_not_bot
 
         try:
             user_input = ""
             user_input = await self.bot.wait_for('message',
-                                                 check=lambda message: message.channel == context.channel
-                                                                       and not message.author.bot,
+                                                 check=is_input_valid,
                                                  timeout=45)
         except asyncio.TimeoutError:
             await context.send(TIME_OUT)
@@ -111,7 +110,7 @@ class Hangman(Cog):
     def get_input_info(message):
         user_id = message.author.id
         user_name = message.author
-        user_guess = message.content.lower()
+        user_guess = message.content.strip().lower()
 
         return user_id, user_name, user_guess
 

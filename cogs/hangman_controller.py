@@ -2,7 +2,7 @@ from discord.ext import commands
 from cogs.utils.hangman_data.hangman import Hangman
 from cogs.utils.hangman_data.hangman_help import get_word
 
-categories = ['animales', 'profesiones']
+categories = ['animales', 'profesiones', 'ciudades']
 
 
 class HangmanController(commands.Cog):
@@ -18,6 +18,7 @@ class HangmanController(commands.Cog):
         Categories:
         `animales` (199)
         `profesiones` (141)
+        `ciudades` (49) (son las ciudades hispanohablantes más grandes)
 
         Type `$hangman <category>` to start a new game, eg `hangman profesiones`, `hangman animales`
         No input defaults to `animales`
@@ -27,8 +28,8 @@ class HangmanController(commands.Cog):
         cat = ''
         if len(category) >= 1 and category[0] not in categories:
             return await ctx.send("""
-            Category not found, only `animales` and `profesiones` are available. 
-            See `$help hangman` for correct usage
+            Category not found, available categories: `animales`, `profesiones`, `ciudades`. 
+            See $help hangman for more info
             """)
 
         cat = 'animales' if len(category) == 0 else category[0]
