@@ -39,7 +39,7 @@ class Hablemos(Bot):
 
         print("BOT LOADED!")
         await self.online_channel.send("I'm online bra :smiling_imp:")
-        await self.change_presence(activity=Game(f'{PREFIX}topic for a conversation starter'))
+        await self.change_presence(activity=Game(f'{PREFIX}help'))
 
     async def on_command_error(self, ctx, error):
         if ctx.message.content[1].isdigit() or ctx.message.content[-1] == PREFIX:  # ignores dollar amounts and math bot
