@@ -21,11 +21,11 @@ def get_img_url(url_identifier: str):
     return str(url_identifier)[:-4]+'256'
 
 
-def remove_emoji_from_message(message):
+def remove_emoji_from_message(message):  # for custom emojis
     return sub("<:[A-Za-z0-9_]+:([0-9]+)>", '', message).replace("  ", " ")
 
 
-def give_emoji_free_text(text: str) -> str:
+def give_emoji_free_text(text: str) -> str:  # for standard emojis
     return emoji.get_emoji_regexp().sub(r'', text)[:28]
 
 
