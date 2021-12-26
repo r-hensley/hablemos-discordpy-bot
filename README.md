@@ -1,10 +1,13 @@
 # Hablemos 🗣
 
-Discord bot for Spanish/English servers. Coded in Discordpy
+Multi-purpose bot for the [Spanish-English Learning Server](https://discord.gg/spanish-english).
 
-Some key features:
+
+
+Features:
 
 - Suggest conversation topics in Spanish and English
+- Play vocabulary games in Spanish
 
 
 # Commands
@@ -27,12 +30,15 @@ Some key features:
         - `would`, `3` - *'Would you rather'* questions
         - `other`,`4` -  Random questions        
         <br>
-        [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing)
+        [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/)
 
 ## Hangman
 - `hangman` - runs a new instance of the classic hangman game (but in Spanish)
 
-    For now the only  category is `animales`
+    categories:
+  - `animales`
+  - `profesiones`
+  - `ciudades`
 
 ## Quote generator
 - `quote <message>` or `quote <message_link>` - generates a dramatic looking quote using a user's message
