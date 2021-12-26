@@ -1,13 +1,14 @@
 from discord.ext import commands
 from cogs.utils.hangman_data.hangman import Hangman
 from cogs.utils.hangman_data.hangman_help import get_word
+from base_cog import BaseCog
 
 categories = ['animales', 'profesiones', 'ciudades']
 
 
-class HangmanController(commands.Cog):
+class HangmanController(BaseCog):
     def __init__(self, bot):
-        self.bot = bot
+        super().__init__(bot)
         self.game_in_progress = False
         self.channels = []
 
@@ -46,9 +47,6 @@ class HangmanController(commands.Cog):
         new_game = Hangman(self.bot, words, cat)
         await new_game.game_loop(context)
         self.channels.remove(channel)
-
-    async def cog_command_error(self, ctx, error):
-        print('An error occurred: {}'.format(str(error)))
 
 
 def setup(bot):

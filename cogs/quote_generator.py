@@ -1,24 +1,19 @@
-"""
-Fun utility that creates quotes using the message content and username of a user
-and converts it to an image using html and css
-"""
-from re import sub
-
 from cogs.utils.quote_generator_data.image_creator import dir_path
+from cogs.utils.quote_generator_data.image_creator import create_image
+from base_cog import BaseCog
 
-from discord.ext.commands import Cog, command, cooldown, BucketType
-from discord import File
-import emoji
-
+from re import sub
 from os import remove
 
-from cogs.utils.quote_generator_data.image_creator import create_image
+from discord.ext.commands import command, cooldown, BucketType
+from discord import File
+import emoji
 
 
 def get_img_url(url_identifier: str):
     if url_identifier is None:  # user doesn't have a profile picture
         return "https://i.imgur.com/z9tOsSz.png"
-    return str(url_identifier)[:-4]+'256'
+    return str(url_identifier)[:-4] + '256'
 
 
 def remove_emoji_from_message(message):  # for custom emojis
@@ -45,16 +40,16 @@ async def get_html_css_info(channel, message_id, server):
     return user_nick, user_avatar, message_content
 
 
-class QuoteGenerator(Cog):
+class QuoteGenerator(BaseCog):
     def __init__(self, bot) -> None:
-        self.bot = bot
+        super().__init__(bot)
 
     @command(aliases=['q', ])
     @cooldown(1, 10, type=BucketType.user)
     async def quote(self, ctx, *user_input):
         """
         (still testing, please report any errors or suggestions)
-        Generates a dramatically themed quote using a **message url**, **your own message** or **replying to a message**.
+        Creates a quote using a **message url**, **your own message** or **replying to a message**.
         Images and custom emojis won't show up and there's a limit to 150 words.
 
         Example usage:

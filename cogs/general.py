@@ -1,4 +1,5 @@
-from discord.ext.commands import command, Cog
+from discord.ext.commands import command
+from base_cog import BaseCog
 from discord import Embed, Color, Forbidden
 
 SOURCE_URL = 'https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/edit?usp=sharing'
@@ -6,8 +7,8 @@ REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
 PYC = 'https://github.com/Pycord-Development/pycord'
 INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
-PREFIX_ = "$" # the real one, have to make it configurable some day
-# PREFIX_ = "-"  # for testing
+# PREFIX_ = "$" # the real one, have to make it configurable some day
+PREFIX_ = "-"  # for testing
 
 
 def green_embed(text):
@@ -22,9 +23,9 @@ async def safe_send(destination, content=None, *, embed=None):
               f"\nGuild: {destination.guild.id}")
 
 
-class General(Cog):
+class General(BaseCog):
     def __init__(self, bot):
-        self.bot = bot
+        super().__init__(bot)
 
     @command()
     async def help(self, ctx, arg=''):

@@ -2,6 +2,7 @@ from random import choice
 from cogs.utils.convo_starter_data.convo_starter_help import categories, get_random_question
 from cogs.general import safe_send
 from discord.ext import commands
+from base_cog import BaseCog
 from discord import Embed
 
 # Embed Message
@@ -27,10 +28,10 @@ def embed_question(question_1a, question_1b):
     return embed
 
 
-class ConvoStarter(commands.Cog):
+class ConvoStarter(BaseCog):
 
     def __init__(self, bot):
-        self.bot = bot
+        super().__init__(bot)
 
     @commands.command(aliases=['top', ])
     async def topic(self, ctx, *category):
@@ -43,8 +44,7 @@ class ConvoStarter(commands.Cog):
 
         table = ""
         if len(category) > 1:
-            await ctx.send(ERROR_MESSAGE)
-            return
+            return await ctx.send(ERROR_MESSAGE)
         if len(category) == 0:
             table = "general"
         elif category[0] in categories:
@@ -52,8 +52,7 @@ class ConvoStarter(commands.Cog):
         elif category[0] in ['1', '2', '3', '4']:
             table = categories[int(category[0]) - 1]
         else:
-            await ctx.send(NOT_FOUND)
-            return
+            return await ctx.send(NOT_FOUND)
 
         question_spa_eng = get_random_question(table)
 
