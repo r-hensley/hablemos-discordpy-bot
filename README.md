@@ -4,6 +4,7 @@ Multi-purpose bot for the [Spanish-English Learning Server](https://discord.gg/s
 
 
 
+
 Features:
 
 - Suggest conversation topics in Spanish and English
@@ -30,7 +31,7 @@ Features:
         - `would`, `3` - *'Would you rather'* questions
         - `other`,`4` -  Random questions        
         <br>
-        [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/)
+ [List of questions](https://docs.google.com/spreadsheets/d/10jsNQsSG9mbLZgDoYIdVrbogVSN7eAKbOfCASA5hN0A/)      
 
 ## Hangman
 - `hangman` - runs a new instance of the classic hangman game (but in Spanish)
