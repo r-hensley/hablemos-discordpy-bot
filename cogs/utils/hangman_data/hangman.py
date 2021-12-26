@@ -25,7 +25,7 @@ VOWELS = {'a': ['a', 'á'],
           'i': ['i', 'í'],
           'o': ['o', 'ó'],
           'u': ['u', 'ú', 'ü'], }
-MAX_ERRORS = 6
+MAX_ERRORS = 8
 
 
 class Hangman(Cog):

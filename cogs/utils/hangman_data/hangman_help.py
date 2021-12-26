@@ -74,9 +74,9 @@ def get_hangman_string(errors, message="", correctly_guest="", wrongly_guessed="
     . ┌─────┐
     .┃...............┋
     .┃...............┋
-    .┃{".............:cry:" if errors > 0 else ""}
-    .┃{"............./" if errors > 1 else ""} {"|" if errors > 2 else ""} {back_slash if errors > 3 else ""} 
-    .┃{"............./" if errors > 4 else ""} {back_slash if errors > 5 else ""}
+    .┃{".............:cry:" if errors > 1 else ""}
+    .┃{"............./" if errors > 3 else ""} {"|" if errors > 4 else ""} {back_slash if errors > 5 else ""} 
+    .┃{"............./" if errors > 6 else ""} {back_slash if errors > 7 else ""}
     /-\\    
     {' '.join(wrongly_guessed)}
     """
