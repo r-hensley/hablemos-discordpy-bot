@@ -82,8 +82,8 @@ class Hangman(Cog):
         )
 
     def create_dict_indices(self):
-        for idx in range(len(self.unaccented_word)):
-            self.indices[self.unaccented_word[idx]].append(idx)
+        for idx, letter in enumerate(self.unaccented_word):
+            self.indices[letter].append(idx)
 
     async def get_user_guess(self, context):
         def is_input_valid(user_message):
