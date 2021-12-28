@@ -36,12 +36,12 @@ class ConvoStarter(BaseCog):
     @commands.command(aliases=['top', ])
     async def topic(self, ctx, *category):
         """
-        Command used to suggestion a random conversation topic. Type `$topic <category>`. Just typing `$topic` will suggest a topic from the `general` category.
+        Command used to suggestion a random conversation topic. Type `$topic <category>`.
+        Just typing `$topic` will suggest a topic from the `general` category.
 
         Type `$lst` to see the list of categories.
 
         Examples: `$topic`, `$topic phil`, `$topic 4`"""
-
         table = ""
         if len(category) > 1:
             return await ctx.send(ERROR_MESSAGE)
