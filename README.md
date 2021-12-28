@@ -56,3 +56,5 @@ example:
 - Other
     - ~~Spanish Hangman or other vocabulary game~~
     - Reverso contexto
+    - Clozemaster-esque
+    - Word bubble
