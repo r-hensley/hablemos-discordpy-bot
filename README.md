@@ -1,23 +1,18 @@
 # Hablemos 🗣
 
-Multi-purpose bot for the [Spanish-English Learning Server](https://discord.gg/spanish-english).
-
-
-
+Multipurpose bot for the [Spanish-English Learning Server](https://discord.gg/spanish-english).
 
 Features:
-
 - Suggest conversation topics in Spanish and English
 - Play vocabulary games in Spanish
 
+## Commands
+  - [General](#general)
+  - [Conversation starters](#conversation-starters)
+  - [Hangman](#hangman)
+  - [Quote generator](#Quote-generator)
 
-# Commands
-- [General](#general)
-- [Conversation starters](#conversation-starters)
-- [Hangman](#hangman)
-- [Quote generator](#Quote-generator)
-
-## General
+### General
 - **`help`** Shows available commands and further information on their usage
 - **`invite`** Invite link to the bot
 - **`info`** Information about the bot
