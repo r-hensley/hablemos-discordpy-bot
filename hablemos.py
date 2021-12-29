@@ -2,15 +2,18 @@ from os import getenv
 from discord import Game, Intents
 from discord.ext.commands import Bot, CommandNotFound, CommandOnCooldown
 from dotenv import load_dotenv
-from cogs.general import PREFIX_
 
 load_dotenv('.env')
 
-PREFIX = PREFIX_
+# PREFIX = "$" # the real one, have to make it configurable some day
+PREFIX = "-"  # for testing
+
+
 cog_extensions = ['cogs.convo_starter',
                   'cogs.general',
                   'cogs.hangman_controller',
-                  'cogs.quote_generator', ]
+                  'cogs.quote_generator',
+                  'cogs.reverso']
 
 
 # 'cogs.pages']
