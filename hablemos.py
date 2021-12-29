@@ -35,14 +35,11 @@ class Hablemos(Bot):
             self.load_extension(extension)
             print(f"{extension} loaded")
 
-    @staticmethod
-    async def on_ready():
+    async def on_ready(self):
         # error log in my personal server
-        print("BOT LOADED!")
-
-    async def on_connect(self):
         self.error_channel = self.get_guild(731403448502845501).get_channel(811669166883995690)
         self.online_channel = self.get_guild(731403448502845501).get_channel(808679873837137940)
+        print("BOT LOADED!")
         await self.online_channel.send("I'm online bra :smiling_imp:")
         await self.change_presence(activity=Game(f'{PREFIX}help'))
 
