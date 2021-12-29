@@ -63,7 +63,7 @@ class Reverso(BaseCog):
                            f"Feel free to also checkout :\n{REVERSO_URL}")
 
     @staticmethod
-    def get_entries(lang_1, lang_2, input_string) -> tuple[list[list], bool]:
+    def get_entries(lang_1, lang_2, input_string):
         api = reverso(input_string, "", lang_1, lang_2)
         counter = 0
         examples = []
