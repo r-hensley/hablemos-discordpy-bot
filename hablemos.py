@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
-# PREFIX = "$" # the real one, have to make it configurable some day
-PREFIX = "-"  # for testing
+PREFIX = "$"  # the real one, have to make it configurable some day
+# PREFIX = "-"  # for testing
 
 
 cog_extensions = ['cogs.convo_starter',
@@ -35,12 +35,14 @@ class Hablemos(Bot):
             self.load_extension(extension)
             print(f"{extension} loaded")
 
-    async def on_ready(self):
+    @staticmethod
+    async def on_ready():
         # error log in my personal server
+        print("BOT LOADED!")
+
+    async def on_connect(self):
         self.error_channel = self.get_guild(731403448502845501).get_channel(811669166883995690)
         self.online_channel = self.get_guild(731403448502845501).get_channel(808679873837137940)
-
-        print("BOT LOADED!")
         await self.online_channel.send("I'm online bra :smiling_imp:")
         await self.change_presence(activity=Game(f'{PREFIX}help'))
 
@@ -49,14 +51,16 @@ class Hablemos(Bot):
             return
         if isinstance(error, CommandNotFound):
             await self.error_channel.send(
-                f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, {ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+                f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, "
+                f"{ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
         if isinstance(error, CommandOnCooldown):
             await ctx.send(f"This command is on cooldown.  Try again in {round(error.retry_after)} seconds.")
 
     async def on_command_completion(self, ctx):
         await self.error_channel.send(
-            f"------\nSuccesfully used by {ctx.author}, {ctx.channel},{ctx.guild}, {ctx.message.content}\n{ctx.message.jump_url}\n------")
+            f"------\nSuccessfully used by {ctx.author}, {ctx.channel},{ctx.guild}, "
+            f"{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
 
 bot = Hablemos()
