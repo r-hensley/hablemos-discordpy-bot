@@ -7,20 +7,12 @@ REPO = 'https://github.com/Jaleel-VS/hablemos-discordpy-bot'
 DPY = 'https://discordpy.readthedocs.io/en/latest/'
 PYC = 'https://github.com/Pycord-Development/pycord'
 INVITE_LINK = "https://discord.com/api/oauth2/authorize?client_id=808377026330492941&permissions=3072&scope=bot"
-PREFIX_ = "$" # the real one, have to make it configurable some day
-# PREFIX_ = "-"  # for testing
+
+from hablemos import PREFIX as PREFIX_
 
 
 def green_embed(text):
     return Embed(description=text, color=Color(int('00ff00', 16)))
-
-
-async def safe_send(destination, content=None, *, embed=None):
-    try:
-        return await destination.send(content, embed=embed)
-    except Forbidden:
-        print(f"I don't have permission to send messages in:\nChannel: #{destination.channel.name}"
-              f"\nGuild: {destination.guild.id}")
 
 
 class General(BaseCog):
@@ -32,7 +24,7 @@ class General(BaseCog):
         if arg:
             requested = self.bot.get_command(arg)
             if not requested:
-                await safe_send(ctx, "I was unable to find the command you requested")
+                await ctx.send("I was unable to find the command you requested")
                 return
             message = ""
             message += f"**{PREFIX_}{requested.qualified_name}**\n"
@@ -41,7 +33,7 @@ class General(BaseCog):
             if requested.help:
                 message += requested.help
             emb = green_embed(message)
-            await safe_send(ctx, embed=emb)
+            await ctx.send(embed=emb)
         else:
             to_send = """
             Type `$help <command>` for more info about on any command.
@@ -55,9 +47,11 @@ class General(BaseCog):
             **Hangman**
                 `hangman` - Starts a new game with Spanish vocabulary
             **Quote generator** 
-                `quote <message>` or `quote <message_link>` - Generates a "quote image" of a user's message             
+                `quote <message>` or `quote <message_link>` - Generates a "quote image" of a user's message
+            **Reverso Contexto**
+                `reverso <source_language> <target_language> <message>` - Find in-context examples in your target languages
             """
-            await safe_send(ctx, embed=green_embed(to_send))
+            await ctx.send(embed=green_embed(to_send))
 
     @command(aliases=['list', ])
     async def lst(self, ctx):
@@ -76,7 +70,7 @@ class General(BaseCog):
 
         [Full list of questions]({SOURCE_URL})        
         """
-        await safe_send(ctx, embed=green_embed(categories))
+        await ctx.send(embed=green_embed(categories))
 
     @command()
     async def info(self, ctx):
@@ -91,7 +85,7 @@ class General(BaseCog):
         [Github Repository]({REPO})
         """
 
-        await safe_send(ctx, embed=green_embed(text))
+        await ctx.send(embed=green_embed(text))
 
     @command()
     async def invite(self, ctx):
@@ -104,15 +98,14 @@ class General(BaseCog):
         I still have to make the prefix configurable so for now you have to use `$`
         """
 
-        await safe_send(ctx, embed=green_embed(text))
+        await ctx.send(embed=green_embed(text))
 
     @command()
     async def ping(self, ctx):
         """
         Ping the bot to see if there are latency issues
         """
-        await safe_send(ctx,
-                        embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
+        await ctx.send(embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
 
 def setup(bot):
