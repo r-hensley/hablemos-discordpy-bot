@@ -16,9 +16,6 @@ cog_extensions = ['cogs.convo_starter',
                   'cogs.reverso']
 
 
-# 'cogs.pages']
-
-
 class Hablemos(Bot):
     error_channel = ""
     online_channel = ""

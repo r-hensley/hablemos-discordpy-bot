@@ -113,6 +113,27 @@ class Reverso(BaseCog):
               f"{helper_functions.language_codes[self.languages[1]].lower()}/{'+'.join(self.user_input.split())}"
         return url
 
+    @command(aliases=['lc', 'codes'])
+    async def langcodes(self, ctx):
+        """language codes"""
+        codes = """
+            - en: English
+            - ar: Arabic
+            - es: Spanish
+            - de: German
+            - fr: French
+            - he: Hebrew
+            - it: Italian
+            - ja: Japanese
+            - nl: Dutch
+            - pl: Polish
+            - pt: Portuguese
+            - ro: Romanian
+            - ru: Russian
+        """
+        await ctx.send(embed=Embed(color=Color.nitro_pink(), description=codes))
+
+
 
 def setup(bot):
     bot.add_cog(Reverso(bot))
