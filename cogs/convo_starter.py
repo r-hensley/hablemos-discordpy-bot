@@ -1,6 +1,5 @@
 from random import choice
 from cogs.utils.convo_starter_data.convo_starter_help import categories, get_random_question
-from cogs.general import safe_send
 from discord.ext import commands
 from base_cog import BaseCog
 from discord import Embed
@@ -16,8 +15,9 @@ spa_channels = [809349064029241344, 243858509123289089, 388539967053496322, 4776
 # eng_channels = []
 
 # Embed question
-colors = [0x7289da, 0xe74c3c, 0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
-          0x3498db, 0x2ecc71, 0x1abc9c]
+colors = [0x57F287, 0xED4245, 0xEB459E, 0xFEE75C, 0xf47fff, 0x7289da, 0xe74c3c,
+          0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
+          0x3498db, 0x2ecc71, 0x1abc9c, ]
 
 
 def embed_question(question_1a, question_1b):
@@ -60,7 +60,7 @@ class ConvoStarter(BaseCog):
             emb = embed_question(question_spa_eng[0], question_spa_eng[1])
         else:
             emb = embed_question(question_spa_eng[1], question_spa_eng[0])
-        await safe_send(ctx, embed=emb)
+        await ctx.send(embed=emb)
 
 
 def setup(bot):
