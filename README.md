@@ -43,6 +43,28 @@ example:
 
 ![quote example](https://cdn.discordapp.com/attachments/808679873837137940/920026460234862643/unknown.png)
 <br>
+
+## Reverso context
+- `reverso <source_language> <target_language> <message>` - Find in-context examples in your target languages
+example:
+-  `reverso es en todo lo que hicimos`
+![reverso examples](https://cdn.discordapp.com/attachments/808679873837137940/925768548385706045/unknown.png)
+language codes:
+    - 'en': "English"
+    - 'ar': "Arabic"
+    - 'es': "Spanish"
+    - 'de': "German"
+    - 'fr': "French"
+    - 'he': "Hebrew"
+    - 'it': "Italian"
+    - 'ja': "Japanese"
+    - 'nl': "Dutch"
+    - 'pl': "Polish"
+    - 'pt': "Portuguese"
+    - 'ro': "Romanian"
+    - 'ru': "Russian"
+
+<br>
 # To-Do
 - General
     - Add functionality to make prefix configurable
