@@ -75,7 +75,7 @@ class Reverso(BaseCog):
             if counter == 10:
                 break
 
-        if len(examples) == 0:
+        if not examples:
             return [[]], False
         else:
             return examples, True
@@ -85,8 +85,7 @@ class Reverso(BaseCog):
         if n_results == 0:
             print("No results found. Please make sure")
             return
-        embeds = [self.result_embed(entry) for entry in entries]
-        return embeds
+        return [self.result_embed(entry) for entry in entries]
 
     def result_embed(self, entry):
         embed = Embed(color=Color.nitro_pink())
@@ -109,9 +108,10 @@ class Reverso(BaseCog):
         return paginator
 
     def get_url(self):
-        url = f"{REVERSO_URL}{helper_functions.language_codes[self.languages[0]].lower()}-" \
-              f"{helper_functions.language_codes[self.languages[1]].lower()}/{'+'.join(self.user_input.split())}"
-        return url
+        return (
+            f"{REVERSO_URL}{helper_functions.language_codes[self.languages[0]].lower()}-"
+            f"{helper_functions.language_codes[self.languages[1]].lower()}/{'+'.join(self.user_input.split())}"
+        )
 
     @command(aliases=['lc', 'codes'])
     async def langcodes(self, ctx):
@@ -132,7 +132,6 @@ class Reverso(BaseCog):
             - ru: Russian
         """
         await ctx.send(embed=Embed(color=Color.nitro_pink(), description=codes))
-
 
 
 def setup(bot):
