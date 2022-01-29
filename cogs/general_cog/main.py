@@ -107,6 +107,12 @@ class General(BaseCog):
         """
         await ctx.send(embed=green_embed(f"**Command processing time**: {round(self.bot.latency * 1000, 2)}ms"))
 
+    @command()
+    async def mystats(self, ctx):
+        guilds = await self.bot.fetch_guilds().flatten()
+        my_guilds = ''.join(f"{guild}\n" for guild in guilds)
+        await ctx.send(f"The bot is in the following guilds: \n {my_guilds}")
+
 
 def setup(bot):
     bot.add_cog(General(bot))

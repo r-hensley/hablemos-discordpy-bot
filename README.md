@@ -45,11 +45,14 @@ example:
 <br>
 
 ## Reverso context
-- `reverso <source_language> <target_language> <message>` - Find in-context examples in your target languages
+- `reverso <source_language> <target_language> <message>` - Find in-context examples in your target languages;
 example:
--  `reverso es en todo lo que hicimos`
+  `reverso es en todo lo que hicimos`
+
+    
 ![reverso examples](https://cdn.discordapp.com/attachments/808679873837137940/925768548385706045/unknown.png)
-language codes:
+
+- language codes:
     - 'en': "English"
     - 'ar': "Arabic"
     - 'es': "Spanish"
@@ -65,6 +68,7 @@ language codes:
     - 'ru': "Russian"
 
 <br>
+
 # To-Do
 - General
     - Add functionality to make prefix configurable
@@ -75,8 +79,10 @@ language codes:
   - add more categories
 - Quote generator
   - Use different image style
+- ReversoContext
+  - No input for English/Spanish
 - Other
     - ~~Spanish Hangman or other vocabulary game~~
-    - Reverso contexto
+    - ~~Reverso contexto~~
     - Clozemaster-esque
-    - Word bubble
+    - Word bubble or Wordle clone

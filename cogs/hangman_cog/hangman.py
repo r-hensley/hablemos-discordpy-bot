@@ -3,14 +3,14 @@ from re import sub
 
 from discord.ext.commands import Cog
 
-from cogs.utils.hangman_data.hangman_help import (get_unaccented_letter,
-                                                  get_unaccented_word,
-                                                  get_hidden_word,
-                                                  get_hangman_string,
-                                                  embed_quote,
-                                                  create_final_embed,
-                                                  start_game
-                                                  )
+from cogs.hangman_cog.data.hangman_help import (get_unaccented_letter,
+                                                get_unaccented_word,
+                                                get_hidden_word,
+                                                get_hangman_string,
+                                                embed_quote,
+                                                create_final_embed,
+                                                start_game
+                                                )
 
 # strings for the embeds
 DOES_NOT_EXIST = "{} La `{}` no se encuentra en esta palabra. Puedes volver a adivinar en 2 segundos"

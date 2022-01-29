@@ -1,5 +1,5 @@
 from random import choice
-from cogs.utils.convo_starter_data.convo_starter_help import categories, get_random_question
+from cogs.convo_starter_cog.convo_starter_data.convo_starter_help import categories, get_random_question
 from discord.ext import commands
 from base_cog import BaseCog
 from discord import Embed

@@ -1,5 +1,5 @@
-from cogs.utils.quote_generator_data.image_creator import dir_path
-from cogs.utils.quote_generator_data.image_creator import create_image
+from cogs.quote_generator_cog.quote_generator_data.image_creator import dir_path
+from cogs.quote_generator_cog.quote_generator_data.image_creator import create_image
 from base_cog import BaseCog
 
 from re import sub

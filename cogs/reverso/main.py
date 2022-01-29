@@ -1,4 +1,4 @@
-from cogs.utils.reverso_data.helper import HelperFunctions
+from helper import HelperFunctions
 from base_cog import BaseCog
 
 from discord.ext.commands import command, cooldown, BucketType
@@ -6,24 +6,23 @@ from discord.ext import pages
 from reverso_api.context import ReversoContextAPI as reverso
 from discord import Embed, Color, ButtonStyle
 
-helper_functions = HelperFunctions()
 NOT_FOUND_ERROR = "Input not recognised. Please type `$langcodes` to see a list of available languages. " \
-                  "Please type `$help reverso` for correct usage."
-
+                  "Please type `$help reverso` too see correct example usage."
 REVERSO_URL = "https://context.reverso.net/translation/"
-REPO = "https://discord.com/channels/731403448502845501/808679873837137940"
+
+helper_functions = HelperFunctions()
 
 
 class Reverso(BaseCog):
-    languages = None
-    user_input = None
-
+    """Fetch example sentences from the Reverso Context API given user input"""
     def __init__(self, bot):
         super().__init__(bot)
+        self.languages = []
+        self.user_input = ""
 
     @command(aliases=['rev', 'reverse', ])
     @cooldown(1, 10, type=BucketType.user)
-    async def reverso(self, ctx, lang_original=None, lang_target=None, *, message=None) -> None:
+    async def reverso(self, ctx, lang_original=None, lang_target=None, *, message=None):
         """
         (still experimental, please report any bugs or errors)
         Receive in-context examples of a specific text in your target language
@@ -37,42 +36,49 @@ class Reverso(BaseCog):
         The bot doesn't check for spelling so if you don't see any or few results,
         please make sure the input is spelled correctly
         """
-        if lang_original not in helper_functions.language_codes or lang_original is None:
-            return await ctx.send(NOT_FOUND_ERROR)
+        if not await self.is_input_valid(ctx, lang_original, lang_target, message):
+            return
 
-        elif lang_target not in helper_functions.language_codes or lang_target is None:
-            return await ctx.send(NOT_FOUND_ERROR)
-
-        elif message is None:
-            return await ctx.send("Please enter the text you want translated\n eg. `$reverso es en lo que hicimos`")
-
-        user_message = await ctx.send(embed=Embed(color=Color.nitro_pink(),
-                                                  description="<a:loading:925770299188867105> Please wait"))
+        ctx_message = await ctx.send(embed=Embed(color=Color.nitro_pink(),
+                                                 description="<a:loading:925770299188867105> Please wait"))
 
         self.languages = [lang_original, lang_target]
         self.user_input = message
         reverso_entries, results_found = self.get_entries(lang_original, lang_target, message)
+        await ctx_message.delete()
         if results_found:
-            reverso_pages = self.create_pages(reverso_entries)
+            reverso_pages = self.get_pages(reverso_entries)
             reverso_paginator = self.get_paginator(reverso_pages)
-            await user_message.delete()
             await reverso_paginator.send(ctx, ephemeral=False)
         else:
-            await user_message.delete()
-            await ctx.send(f"No results. Please check your language codes and or spelling. "
+            await ctx.send(f"No results found. Please check your language codes and or spelling. "
                            f"Feel free to also checkout :\n{REVERSO_URL}")
+
+    @staticmethod
+    async def is_input_valid(context, lang_original, lang_target, message):
+        valid = True
+        if (
+            lang_original not in helper_functions.language_codes
+            or lang_target not in helper_functions.language_codes
+        ):
+            await context.send(NOT_FOUND_ERROR)
+            valid = False
+
+        elif message is None:
+            await context.send("Please enter the text you want translated\n eg. `$reverso es en lo que hicimos`")
+            valid = False
+
+        return valid
 
     @staticmethod
     def get_entries(lang_1, lang_2, input_string):
         api = reverso(input_string, "", lang_1, lang_2)
-        counter = 0
         examples = []
-        for source, target in api.get_examples():
-            exa = [helper_functions.highlight_example(source.text, source.highlighted),
-                   helper_functions.highlight_example(target.text, target.highlighted)]
-            examples.append(exa)
-            counter += 1
-            if counter == 10:
+        for counter, (source_lang, target_lang) in enumerate(api.get_examples()):
+            example = [helper_functions.highlight_example(source_lang.text, source_lang.highlighted),
+                       helper_functions.highlight_example(target_lang.text, target_lang.highlighted)]
+            examples.append(example)
+            if counter == 9:  # get ten examples
                 break
 
         if not examples:
@@ -80,11 +86,7 @@ class Reverso(BaseCog):
         else:
             return examples, True
 
-    def create_pages(self, entries):
-        n_results = len(entries)
-        if n_results == 0:
-            print("No results found. Please make sure")
-            return
+    def get_pages(self, entries):
         return [self.result_embed(entry) for entry in entries]
 
     def result_embed(self, entry):
@@ -107,7 +109,7 @@ class Reverso(BaseCog):
         paginator.customize_button("last", button_label=">>", button_style=ButtonStyle.blurple)
         return paginator
 
-    def get_url(self):
+    def get_source_url(self):
         return (
             f"{REVERSO_URL}{helper_functions.language_codes[self.languages[0]].lower()}-"
             f"{helper_functions.language_codes[self.languages[1]].lower()}/{'+'.join(self.user_input.split())}"
@@ -115,23 +117,12 @@ class Reverso(BaseCog):
 
     @command(aliases=['lc', 'codes'])
     async def langcodes(self, ctx):
-        """language codes"""
-        codes = """
-            - en: English
-            - ar: Arabic
-            - es: Spanish
-            - de: German
-            - fr: French
-            - he: Hebrew
-            - it: Italian
-            - ja: Japanese
-            - nl: Dutch
-            - pl: Polish
-            - pt: Portuguese
-            - ro: Romanian
-            - ru: Russian
-        """
-        await ctx.send(embed=Embed(color=Color.nitro_pink(), description=codes))
+        language_codes = "".join(
+            f"- {code}: {lang}\n"
+            for code, lang in helper_functions.language_codes.items()
+        )
+
+        await ctx.send(embed=Embed(color=Color.nitro_pink(), description=language_codes))
 
 
 def setup(bot):
