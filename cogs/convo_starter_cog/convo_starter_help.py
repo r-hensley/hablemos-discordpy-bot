@@ -1,7 +1,6 @@
 import csv
 import os
 from random import randint
-from typing import Iterable
 
 categories = ['general', 'phil', 'would', 'other']
 
