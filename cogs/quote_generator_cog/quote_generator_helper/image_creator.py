@@ -7,9 +7,11 @@ dir_path = path.dirname(path.dirname(path.realpath(__file__)))
 def create_image(user_name, user_avatar, message_content):
     options = {
         'format': 'png',
-        'crop-w': '639',
+        'crop-w': '644',
         'encoding': "UTF-8",
-        'enable-local-file-access': None
+        'enable-local-file-access': None,
+        'transparent': None,
+
     }
 
     font_size = ""
@@ -31,11 +33,11 @@ def create_image(user_name, user_avatar, message_content):
             <style>   
         @font-face {{
         font-family: 'Satisfy Pro';
-        src: url('{dir_path}/quote_generator_data/fonts/SatisfyPro.eot');
-        src: url('{dir_path}/quote_generator_data/fonts/SatisfyPro.eot?#iefix') format('embedded-opentype'),
-             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.woff') format('woff'),
-             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.ttf') format('truetype'),
-             url('{dir_path}/quote_generator_data/fonts/SatisfyPro.svg#SatisfyPro') format('svg');
+        src: url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot');
+        src: url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot?#iefix') format('embedded-opentype'),
+             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.woff') format('woff'),
+             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.ttf') format('truetype'),
+             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.svg#SatisfyPro') format('svg');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -43,22 +45,30 @@ def create_image(user_name, user_avatar, message_content):
     
     @font-face {{
         font-family: 'Helvetica Neue';
-        src: url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.eot');
-        src: url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.eot?#iefix') format('embedded-opentype'),
-             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.woff') format('woff'),
-             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.ttf') format('truetype'),
-             url('{dir_path}/quote_generator_data/fonts/HelveticaNeue-Roman.svg#HelveticaNeue-Roman') format('svg');
+        src: url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot');
+        src: url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot?#iefix') format('embedded-opentype'),
+             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.woff') format('woff'),
+             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.ttf') format('truetype'),
+             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.svg#HelveticaNeue-Roman') format('svg');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
+    }}
+
+       .fullquote {{
+    border: 4px solid #fff;
+    border-radius: 10px;
+    width: 634px;
+    height: 256px;
     }}
     
         .myImage {{
             float: left;
             -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
             filter: grayscale(100%);
-            border: 2px solid white;
             border-right: 0;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
             width: 258px;
             height: 256px;
             }}
@@ -71,8 +81,9 @@ def create_image(user_name, user_avatar, message_content):
                 margin-top: 0;
                 margin-bottom: 0;
                 background-color: #0c0c0c;
-                border: 2px solid white;
                 border-left: 0;
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
 
                 text-align: center;
                 }}
@@ -83,6 +94,8 @@ def create_image(user_name, user_avatar, message_content):
             font-size: {font_size};
             padding: 10% 5% 5%;
             }}
+
+            
 
             .author {{
                 color: white;
@@ -99,27 +112,32 @@ def create_image(user_name, user_avatar, message_content):
         body {{
             padding: 0;
             margin: 0;
+            background-color: transparent;
         }}
             </style>
             </head>
             <body>
+            <div class="fullquote">
                 <img src="{user_avatar}" class="myImage"/>
                 <div class="quote">
                     <p class="main-quote">{message_content}</p>
                     <p class="author"><span> {user_name} </span></p>
                 </div>
+            </div>
             </body>
             </html>
         '''
 
-    img_path = f"{dir_path}/quote_generator_data/picture.png"
+    img_path = f"{dir_path}/quote_generator_helper/picture.png"
     imgkit.from_string(html, img_path, options=options)
     return img_path
 
 # for testing
-# create_image('Priúñaku',
-#              'https://cdn.discordapp.com/avatars/463728003038576640/fc146df4c3096017d93f26511a6d1798.png?size=256',
-#              'These hées ñare dusty')
+create_image('Priúñaku',
+             'https://cdn.discordapp.com/avatars/166580565548466176/a106c3ab56c9c99d48b437b05a5552e4.png?size=256',
+             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel ultricies ultricies')
+
+
 
 
 
