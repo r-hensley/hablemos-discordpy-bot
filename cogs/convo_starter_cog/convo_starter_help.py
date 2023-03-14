@@ -7,10 +7,6 @@ categories = ['general', 'phil', 'would', 'other']
 dir_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
-def no():
-    return 'cheese'
-
-
 def get_random_question(category: str) -> tuple:
     with open(f"{dir_path}/convo_starter_data/{category}.csv") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
