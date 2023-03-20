@@ -1,7 +1,7 @@
 from random import choice
-from cogs.convo_starter_cog.convo_starter_data.convo_starter_help import categories, get_random_question
+from cogs.convo_starter_cog.convo_starter_help import categories, get_random_question
 from discord.ext import commands
-from base_cog import BaseCog
+from base_cog import BaseCog, COLORS as colors
 from discord import Embed
 
 # Embed Message
@@ -13,11 +13,6 @@ NOT_FOUND = "Topic not found! Please type ``$lst`` to see a list of topics"
 spa_channels = [809349064029241344, 243858509123289089, 388539967053496322, 477630693292113932]
 #  personal server, spa-eng, spa-eng, esp-ing
 # eng_channels = []
-
-# Embed question
-colors = [0x57F287, 0xED4245, 0xEB459E, 0xFEE75C, 0xf47fff, 0x7289da, 0xe74c3c,
-          0xe67e22, 0xf1c40f, 0xe91e63, 0x9b59b6,
-          0x3498db, 0x2ecc71, 0x1abc9c, ]
 
 
 def embed_question(question_1a, question_1b):

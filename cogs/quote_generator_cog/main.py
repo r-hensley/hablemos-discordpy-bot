@@ -1,5 +1,4 @@
-from cogs.quote_generator_cog.quote_generator_data.image_creator import dir_path
-from cogs.quote_generator_cog.quote_generator_data.image_creator import create_image
+from cogs.quote_generator_cog.quote_generator_helper.image_creator import dir_path, create_image
 from base_cog import BaseCog
 
 from re import sub
@@ -7,7 +6,7 @@ from os import remove
 
 from discord.ext.commands import command, cooldown, BucketType
 from discord import File
-import emoji
+import demoji
 
 
 def get_img_url(url_identifier: str):
@@ -21,7 +20,7 @@ def remove_emoji_from_message(message):  # for custom emojis
 
 
 def give_emoji_free_text(text: str) -> str:  # for standard emojis
-    return emoji.get_emoji_regexp().sub(r'', text)[:28]
+    return demoji.replace('', text)[:28]
 
 
 async def get_html_css_info(channel, message_id, server):
@@ -107,7 +106,7 @@ class QuoteGenerator(BaseCog):
         await ctx.send(file=File(generated_url))
 
         # delete file
-        remove(f"{dir_path}/quote_generator_data/picture.png")
+        remove(f"{dir_path}/quote_generator_helper/picture.png")
         print("File removed")
 
 

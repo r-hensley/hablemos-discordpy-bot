@@ -3,7 +3,7 @@ from re import sub
 
 from discord.ext.commands import Cog
 
-from cogs.hangman_cog.data.hangman_help import (get_unaccented_letter,
+from cogs.hangman_cog.hangman_help import (get_unaccented_letter,
                                                 get_unaccented_word,
                                                 get_hidden_word,
                                                 get_hangman_string,

@@ -1,4 +1,4 @@
-from cogs.convo_starter import colors
+from base_cog import COLORS as colors
 
 from os import path, walk
 from random import choice

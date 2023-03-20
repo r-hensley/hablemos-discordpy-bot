@@ -9,11 +9,11 @@ PREFIX = "$"  # the real one, have to make it configurable some day
 # PREFIX = "-"  # for testing
 
 
-cog_extensions = ['cogs.convo_starter',
-                  'cogs.general',
-                  'cogs.hangman_controller',
-                  'cogs.quote_generator',
-                  'cogs.reverso']
+cog_extensions = ['cogs.convo_starter_cog',
+                  'cogs.general_cog',
+                  'cogs.hangman_cog',
+                  'cogs.quote_generator_cog',
+                  'cogs.reverso_cog']
 
 
 class Hablemos(Bot):
@@ -29,7 +29,7 @@ class Hablemos(Bot):
                          )
 
         for extension in cog_extensions:
-            self.load_extension(extension)
+            self.load_extension(f'{extension}.main')
             print(f"{extension} loaded")
 
     async def on_ready(self):

@@ -1,4 +1,4 @@
-from helper import HelperFunctions
+from cogs.reverso_cog.helper import HelperFunctions
 from base_cog import BaseCog
 
 from discord.ext.commands import command, cooldown, BucketType

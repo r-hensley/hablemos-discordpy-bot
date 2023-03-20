@@ -60,12 +60,14 @@ def create_image(user_name, user_avatar, message_content):
     border-radius: 10px;
     width: 634px;
     height: 256px;
+
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
     }}
     
         .myImage {{
             float: left;
-            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-            filter: grayscale(100%);
+            
             border-right: 0;
             border-top-left-radius: 8px;
             border-bottom-left-radius: 8px;

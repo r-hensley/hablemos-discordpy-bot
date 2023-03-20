@@ -1,6 +1,6 @@
 from discord.ext import commands
-from cogs.hangman_cog.data.hangman import Hangman
-from cogs.hangman_cog.data.hangman_help import get_word
+from cogs.hangman_cog.hangman import Hangman
+from cogs.hangman_cog.hangman_help import get_word
 from base_cog import BaseCog
 
 categories = ['animales', 'profesiones', 'ciudades']
