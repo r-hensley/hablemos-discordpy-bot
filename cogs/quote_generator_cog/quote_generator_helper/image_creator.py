@@ -33,11 +33,11 @@ def create_image(user_name, user_avatar, message_content):
             <style>   
         @font-face {{
         font-family: 'Satisfy Pro';
-        src: url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot');
-        src: url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot?#iefix') format('embedded-opentype'),
-             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.woff') format('woff'),
-             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.ttf') format('truetype'),
-             url('{dir_path}/quote_generator_helper/fonts/SatisfyPro.svg#SatisfyPro') format('svg');
+        src: url('file:///{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot');
+        src: url('file:///{dir_path}/quote_generator_helper/fonts/SatisfyPro.eot?#iefix') format('embedded-opentype'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/SatisfyPro.woff') format('woff'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/SatisfyPro.ttf') format('truetype'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/SatisfyPro.svg#SatisfyPro') format('svg');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
@@ -45,11 +45,11 @@ def create_image(user_name, user_avatar, message_content):
     
     @font-face {{
         font-family: 'Helvetica Neue';
-        src: url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot');
-        src: url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot?#iefix') format('embedded-opentype'),
-             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.woff') format('woff'),
-             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.ttf') format('truetype'),
-             url('{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.svg#HelveticaNeue-Roman') format('svg');
+        src: url('file:///{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot');
+        src: url('file:///{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.eot?#iefix') format('embedded-opentype'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.woff') format('woff'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.ttf') format('truetype'),
+             url('file:///{dir_path}/quote_generator_helper/fonts/HelveticaNeue-Roman.svg#HelveticaNeue-Roman') format('svg');
         font-weight: normal;
         font-style: normal;
         font-display: swap;
