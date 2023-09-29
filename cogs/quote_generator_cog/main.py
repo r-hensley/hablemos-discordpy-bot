@@ -20,7 +20,7 @@ def remove_emoji_from_message(message):  # for custom emojis
 
 
 def give_emoji_free_text(text: str) -> str:  # for standard emojis
-    return demoji.replace('', text)[:28]
+    return demoji.replace(text, '')[:28]
 
 
 async def get_html_css_info(channel, message_id, server):
