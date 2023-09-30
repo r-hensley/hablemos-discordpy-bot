@@ -131,16 +131,16 @@ def create_image(user_name, user_avatar, message_content):
         '''
 
     img_path = f"{dir_path}/quote_generator_helper/picture.png"
-    config = imgkit.config(wkhtmltoimage=rf"{dir_path}/quote_generator_helper/wkhtmltoimage.exe")
-    imgkit.from_string(html, img_path, options=options, config=config)
+    try:
+        imgkit.from_string(html, img_path, options=options)  # , config=config)
+    except OSError:
+        raise OSError("\n\nYou need to install wkhtmltoimage. Go to https://wkhtmltopdf.org/downloads.html and place \n"
+                      "the binary somewhere that `which wkhtmltoimage` (Linux) or `where wkhtmltoimage` (Windows) \n"
+                      "can find it (you may need to add it to your system path).")
     return img_path
+
 
 # for testing
 create_image('Priúñaku',
              'https://cdn.discordapp.com/avatars/166580565548466176/a106c3ab56c9c99d48b437b05a5552e4.png?size=256',
              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel ultricies ultricies')
-
-
-
-
-
