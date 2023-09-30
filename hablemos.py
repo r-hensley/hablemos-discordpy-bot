@@ -25,7 +25,7 @@ class Hablemos(Bot):
                          command_prefix=PREFIX,
                          owner_id=216848576549093376,
                          help_command=None,
-                         intents=Intents(members=True, messages=True, guilds=True)
+                         intents=Intents(members=True, messages=True, guilds=True, message_content=True)
                          )
 
         for extension in cog_extensions:
