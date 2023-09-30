@@ -1,7 +1,7 @@
 from os import path
 import imgkit
 
-dir_path = path.dirname(path.dirname(path.realpath(__file__)))
+dir_path = path.dirname(path.dirname(path.realpath(__file__))).replace('\\', '/')
 
 
 def create_image(user_name, user_avatar, message_content):
