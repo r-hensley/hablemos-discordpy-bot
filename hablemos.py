@@ -1,4 +1,6 @@
-from os import getenv
+from os import getenv, path
+
+import discord
 from discord import Game, Intents
 from discord.ext.commands import Bot, CommandNotFound, CommandOnCooldown
 from dotenv import load_dotenv
@@ -57,5 +59,23 @@ class Hablemos(Bot):
             f"{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
 
+# check if .env file exists, and if not, create it for the user
+dir_path = path.dirname(path.realpath(__file__))
+try:
+    with open(f"{dir_path}/.env", 'r') as f:
+        pass
+except FileNotFoundError:
+    txt = """BOT_TOKEN=\n"""
+    with open(f'{dir_path}/.env', 'w') as f:
+        f.write(txt)
+    print("I've created a .env file for you, go in there and put your bot token in the file.")
+    raise discord.LoginFailure
+
+# check if the .env file exists but the BOT_TOKEN field is empty
+token = getenv('BOT_TOKEN')
+if not token:
+    print("You need to put your bot token in the .env file in your bot directory.")
+    raise discord.LoginFailure
+
 bot = Hablemos()
-bot.run(getenv('BOT_TOKEN'))
+bot.run(token)
