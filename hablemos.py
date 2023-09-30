@@ -36,27 +36,36 @@ class Hablemos(Bot):
 
     async def on_ready(self):
         # error log in my personal server
-        self.error_channel = self.get_guild(731403448502845501).get_channel(811669166883995690)
-        self.online_channel = self.get_guild(731403448502845501).get_channel(808679873837137940)
+        try:
+            self.error_channel = self.get_guild(731403448502845501).get_channel(811669166883995690)
+            self.online_channel = self.get_guild(731403448502845501).get_channel(808679873837137940)
+        except AttributeError:
+            self.error_channel = None
+            self.online_channel = None
         print("BOT LOADED!")
-        await self.online_channel.send("I'm online bra :smiling_imp:")
+        if self.online_channel:
+            await self.online_channel.send("I'm online bra :smiling_imp:")
         await self.change_presence(activity=Game(f'{PREFIX}help'))
 
     async def on_command_error(self, ctx, error):
         if ctx.message.content[1].isdigit() or ctx.message.content[-1] == PREFIX:  # ignores dollar amounts and math bot
             return
         if isinstance(error, CommandNotFound):
-            await self.error_channel.send(
-                f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, "
-                f"{ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+            if self.error_channel:
+                await self.error_channel.send(
+                    f"------\nCommand not found:\n{ctx.author}, {ctx.author.id}, {ctx.channel}, {ctx.channel.id}, "
+                    f"{ctx.guild}, {ctx.guild.id}, \n{ctx.message.content}\n{ctx.message.jump_url}\n------")
+            else:
+                raise error
 
         if isinstance(error, CommandOnCooldown):
             await ctx.send(f"This command is on cooldown.  Try again in {round(error.retry_after)} seconds.")
 
     async def on_command_completion(self, ctx):
-        await self.error_channel.send(
-            f"------\nSuccessfully used by {ctx.author}, {ctx.channel},{ctx.guild}, "
-            f"{ctx.message.content}\n{ctx.message.jump_url}\n------")
+        if self.error_channel:
+            await self.error_channel.send(
+                f"------\nSuccessfully used by {ctx.author}, {ctx.channel},{ctx.guild}, "
+                f"{ctx.message.content}\n{ctx.message.jump_url}\n------")
 
 
 # check if .env file exists, and if not, create it for the user
