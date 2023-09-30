@@ -131,7 +131,8 @@ def create_image(user_name, user_avatar, message_content):
         '''
 
     img_path = f"{dir_path}/quote_generator_helper/picture.png"
-    imgkit.from_string(html, img_path, options=options)
+    config = imgkit.config(wkhtmltoimage=rf"{dir_path}/quote_generator_helper/wkhtmltoimage.exe")
+    imgkit.from_string(html, img_path, options=options, config=config)
     return img_path
 
 # for testing
