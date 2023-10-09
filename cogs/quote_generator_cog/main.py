@@ -106,5 +106,5 @@ class QuoteGenerator(BaseCog):
         remove(f"{dir_path}/quote_generator_helper/picture.png")
 
 
-def setup(bot):
-    bot.add_cog(QuoteGenerator(bot))
+async def setup(bot):
+    await bot.add_cog(QuoteGenerator(bot))
