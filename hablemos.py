@@ -1,3 +1,5 @@
+import sys
+import traceback
 from os import getenv, path
 
 import discord
@@ -30,9 +32,16 @@ class Hablemos(Bot):
                          intents=Intents(members=True, messages=True, guilds=True, message_content=True)
                          )
 
+    async def setup_hook(self) -> None:
+        # load cogs
         for extension in cog_extensions:
-            self.load_extension(f'{extension}.main')
-            print(f"{extension} loaded")
+            try:
+                await self.load_extension(f'{extension}.main')
+                print(f"{extension} loaded")
+            except Exception:
+                print(f'Failed to load {extension}', file=sys.stderr)
+                traceback.print_exc()
+                raise
 
     async def on_ready(self):
         # error log in my personal server
@@ -86,5 +95,7 @@ if not token:
     print("You need to put your bot token in the .env file in your bot directory.")
     raise discord.LoginFailure
 
-bot = Hablemos()
-bot.run(token)
+# make it so the below code only executes if you RUN this file. It is ignored if you IMPORT this file
+if __name__ == '__main__':
+    bot = Hablemos()
+    bot.run(token)
