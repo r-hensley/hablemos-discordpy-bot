@@ -104,7 +104,6 @@ class QuoteGenerator(BaseCog):
 
         # delete file
         remove(f"{dir_path}/quote_generator_helper/picture.png")
-        # print("File removed")
 
 
 def setup(bot):

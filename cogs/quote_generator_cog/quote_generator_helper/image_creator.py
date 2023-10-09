@@ -145,7 +145,6 @@ def create_image(user_name, user_avatar, message_content):
         raise OSError("\n\nYou need to install wkhtmltoimage. Go to https://wkhtmltopdf.org/downloads.html and place \n"
                       "the binary somewhere that `which wkhtmltoimage` (Linux) or `where wkhtmltoimage` (Windows) \n"
                       "can find it (you may need to add it to your system path).")
-    print("generated image:", img_path)
     return img_path
 
 
